@@ -1,7 +1,19 @@
+using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Contracts.Services;
+using Infrastructure.Repository;
+using Infrastructure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// registrations!!!
+// service injections , built in dependency, first class citizen, 
+builder.Services.AddScoped<IMovieService, MovieService>();
+// if we want test , just inject with movietestservice. 
+//builder.Services.AddScoped<IMovieService, MovieTestService>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
 
 var app = builder.Build();
 

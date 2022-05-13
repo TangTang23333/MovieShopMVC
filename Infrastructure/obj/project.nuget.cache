@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IN9t1DjBCC5KYwxnTT44w8iz2cnguungXpdnWRWTkJw1pKALj9gMwWdEvqFUTvO+FYZNdZIZzMlMrW8JfOG8Qg==",
+  "dgSpecHash": "HO6Xn1AFZITWbi5rjCPgxzaeHRrCLPwgrvEmSgdc816ZlGKd6N5VFXhrRACu5tF2dtjYZpuZolvaetrr9CEDCw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\15109\\Documents\\Antra-training\\Notes\\MovieShop\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

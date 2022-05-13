@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models
 {
-    internal class MovieCardModel
+    public class MovieCardModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

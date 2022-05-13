@@ -1,24 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Contracts.Services;
+using ApplicationCore.Models;
 
 namespace Infrastructure.Services
+{
+    public class MovieService : IMovieService
+    {
+        private readonly IMovieRepository _movieRepository;
 
-    public class MovieService
-{   // call the movieRepository class
-    // get the entity class data and map them into model class data
+        public MovieService(IMovieRepository movieRepository)
+        {
+            _movieRepository = movieRepository;
+        }
 
-    var movieRepo = new MovieRepository();
-    //var movies = movieRepo.GetTope...
 
-     var movieCards = new List<MovieCardModel>();
 
-    foreach (var moive in movies) {
-        movieCards.Add(NewsStyleUriParser MovieCardModel{
-        Id = 
-        })
-       
+        public List<MovieCardModel> GetTop30GlossingMovies()
+        {
+            // call the movierepository class
+            // get the entity class data and map them in to model class data
+            //var movieRepo = new MovieRepository();
+            var movies = _movieRepository.GetTop30GlossingMovies();
+
+            var movieCards = new List<MovieCardModel>();
+
+            foreach (var movie in movies)
+            {
+                movieCards.Add(new MovieCardModel
+                {
+                    Id = movie.Id,
+                    PosterURL = movie.PosterURL,
+                    Title = movie.Title
+                });
+            }
+
+            return movieCards;
+        }
+
+
     }
 }

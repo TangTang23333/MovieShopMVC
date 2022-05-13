@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationCore.Contracts.Services;
+using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Models;
 using System.Diagnostics;
 
@@ -7,17 +8,30 @@ namespace MovieShopMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        //
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IMovieService _movieService;
+
+        public HomeController(ILogger<HomeController> logger, IMovieService movieService)
         {
             _logger = logger;
+            // need to initiate _movieService; find the implementation
+            _movieService = movieService;
+            // want my code rely on abstractions rathen than concrete types
         }
         // index
         // specify the type of http request
         [HttpGet]
         public IActionResult Index()
-        {   
-            return View();
+        {
+            // newing up 
+            // we can have some higher level framework to create instances. 
+            // this index method is tightly couple with movieSerice;
+            //var movieService = new MovieService();
+
+            var movieCards = _movieService.GetTop30GlossingMovies();
+            // passing the data from Controller action method to View
+            return View(movieCards);
         }
 
 

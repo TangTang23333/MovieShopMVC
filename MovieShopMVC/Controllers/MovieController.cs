@@ -1,18 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApplicationCore.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class MovieController : Controller
     {
-        // GET: MovieController
-        public ActionResult Index()
+
+
+
+        private readonly IMovieService _movieService;
+
+        public MovieController(IMovieService movieService)
         {
-            return View();
+            _movieService = movieService;
         }
 
-        // GET: MovieController/Details/5
-        public ActionResult Details(int id)
+
+
+
+        // GET: Movie/Detail/5
+        public ActionResult Detail(int id)
         {
 
             // go to db Movie table and get the movie by id==1
@@ -27,9 +34,12 @@ namespace MovieShopMVC.Controllers
             // model is the data you want to pass to view 
             // call Onion architecture or N -layer architecture 
             // 
-            return View();
 
-            
+            var movieCards = _movieService.GetTop30GlossingMovies();
+            var movieCard = movieCards.Where(x => x.Id == id).SingleOrDefault();
+            return View(movieCard);
+
+
         }
 
         // GET: MovieController/Create

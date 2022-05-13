@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\15109\\Documents\\Antra-training\\Notes\\MovieShop\\ApplicationCore\\ApplicationCore.csproj",
+      "projectUniqueName": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\ApplicationCore\\ApplicationCore.csproj",
       "projectName": "ApplicationCore",
-      "projectPath": "C:\\Users\\15109\\Documents\\Antra-training\\Notes\\MovieShop\\ApplicationCore\\ApplicationCore.csproj",
+      "projectPath": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\ApplicationCore\\ApplicationCore.csproj",
       "packagesPath": "C:\\Users\\15109\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\15109\\Documents\\Antra-training\\Notes\\MovieShop\\ApplicationCore\\obj\\",
+      "outputPath": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\ApplicationCore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\15109\\AppData\\Roaming\\NuGet\\NuGet.Config",
