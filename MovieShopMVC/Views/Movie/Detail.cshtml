@@ -1,6 +1,16 @@
 ﻿
 @model ApplicationCore.Models.MovieCardModel;
 
-<div>
-    <partial name="_MovieCardPartial"  />
+<div style="display: flex">
+    <partial name="_MovieCardPartial" />
+
+    <div class="card" >
+        
+        <h3>@Model.Title</h3>
+
+        <p>@Model.PosterURL</p>
+        <p>@Model.Id</p>
+
+
+    </div>
 </div>

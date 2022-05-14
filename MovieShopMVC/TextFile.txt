@@ -1,0 +1,26 @@
+﻿1. create an entity that you need based on table requirement 
+2. establish the connection string, where you want the db to be create.
+3. add to appsetting, easy to change in text file than c# codes. 
+4. install required libraries from nuget 
+5. frameworkcore.sqlserver both in web and infrastructure --> 
+6. use frameworkcore.design/ tools -> 
+
+7.DbContext abd DbSet:
+DbContetxt represents DB, DbSet represents tables. 
+
+8. create customized DbContext class that inherits from DbContext base class
+9. inject DbContextOptions from program.cs with connection string into DbContext 
+10. create DbSet<Entity> in DbContext class, as a property of the class. 
+11.add migraiton has to be in folder which has dbcontext !!!!
+12. update-database: run the dbcontext in sql create db and tables.!!!
+13. change in entity- class -> add-migration [name] -> update-database , changed actully made to db
+14. check sql server if the tables/db are created!!
+15. table name are singular 
+16. code first -> do not change in sql server do not touch db!!!!
+always go from code and add migration. 
+
+17. two ways to model our code first design:
+- data annotations
+=== code based, 
+- fluent api 
+=== takes precedence 
