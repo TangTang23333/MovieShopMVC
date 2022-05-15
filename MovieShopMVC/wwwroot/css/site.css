@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+#loginbutton,
+#registerbutton {
+    
+    border-radius: 20px;
+}
+
+.navbar {
+    border-bottom: 1px solid rgb(218, 214, 214);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}

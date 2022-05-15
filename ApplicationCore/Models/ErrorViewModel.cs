@@ -1,4 +1,4 @@
-namespace MovieShopMVC.Models
+﻿namespace ApplicationCore.Models
 {
     public class ErrorViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using ApplicationCore.Contracts.Services;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using MovieShopMVC.Models;
 using System.Diagnostics;
 
 namespace MovieShopMVC.Controllers
@@ -9,6 +9,7 @@ namespace MovieShopMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         //
+
 
         private readonly IMovieService _movieService;
 
@@ -29,9 +30,16 @@ namespace MovieShopMVC.Controllers
             // this index method is tightly couple with movieSerice;
             //var movieService = new MovieService();
 
+            // ==== tried to pass deveral models using dynamic
+            //dynamic homeContent = new ExpandoObject();
             var movieCards = _movieService.GetTop30GlossingMovies();
+
+
+
             // passing the data from Controller action method to View
             return View(movieCards);
+
+
         }
 
 
@@ -56,5 +64,9 @@ namespace MovieShopMVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
     }
 }

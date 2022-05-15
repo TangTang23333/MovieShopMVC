@@ -43,13 +43,9 @@ namespace Infrastructure.Data
             modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
             modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
             modelBuilder.Entity<Genre>(ConfigureGenre);
-
-            //modelBuilder.Entity<Movie>(ConfigureMovie);
-            //modelBuilder.Entity<Purchase>(ConfigurePurchase);
-            //modelBuilder.Entity<Favorite>(ConfigureFavorite);
             modelBuilder.Entity<Review>(ConfigureReview);
             modelBuilder.Entity<UserRole>(ConfigureUserRole);
-            //modelBuilder.Entity<Trailer>(ConfigureTrailer);
+
 
 
         }
@@ -63,7 +59,6 @@ namespace Infrastructure.Data
             builder.Property(g => g.Name).HasMaxLength(150).IsRequired();
 
 
-
         }
 
         //fluent api has more options 
@@ -75,14 +70,6 @@ namespace Infrastructure.Data
         }
 
 
-        //private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
-        //{
-
-
-
-
-        //}
-
 
         private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> builder)
         {
@@ -90,9 +77,6 @@ namespace Infrastructure.Data
             // fluent api takes precedence, run fluent api rather than other config.
 
             builder.HasKey(mc => new { mc.MovieId, mc.CastId, mc.Character });
-
-
-
 
         }
 
@@ -102,9 +86,6 @@ namespace Infrastructure.Data
             // specify the fluent API with rules for Genre table
             // fluent api takes precedence, run fluent api rather than other config.
             builder.HasKey(mc => new { mc.MovieId, mc.CrewId, mc.Job, mc.Department });
-
-
-
 
         }
 
@@ -116,39 +97,15 @@ namespace Infrastructure.Data
             builder.HasKey(ur => new { ur.RoleId, ur.UserId });
 
 
-
-
         }
 
 
-        //private void ConfigureFavorite(EntityTypeBuilder<Favorite> builder)
-        //{
 
-
-
-
-
-
-        //}
-
-
-        //private void ConfigurePurchase(EntityTypeBuilder<Purchase> builder)
-        //{
-
-
-
-
-
-
-
-        //}
 
         private void ConfigureReview(EntityTypeBuilder<Review> builder)
         {
 
             builder.HasKey(r => new { r.MovieId, r.UserId });
-
-
 
 
         }

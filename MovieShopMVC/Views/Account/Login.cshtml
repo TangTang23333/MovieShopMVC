@@ -1,5 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿
+@model ApplicationCore.Models.UserLoginModel;
+
+
+@section Styles {
+    <link href="~/css/Login.css" rel="stylesheet" type="text/css" />
+    
 }
+
+@{
+    ViewData["Title"] = "Login Page";
+    
+}
+
+
+
+
+
+    <div class="loginform">
+
+
+        <form class="wrapper" method="post">
+            
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" name="Email" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword"  name="Password" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">
+                Sign in <i class="fas fa-sign-in-alt"></i>
+
+
+
+            </button>
+            <p class="mt-5 mb-3 text-muted">© 2022</p>
+        </form>
+
+
+    </div>

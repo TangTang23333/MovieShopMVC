@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿
+@model ApplicationCore.Models.UserRegisterRequestModel;
+
+@section Styles {
+    <link href="~/css/Register.css" rel="stylesheet" type="text/css" />
+    
 }
+
+@{
+    ViewData["Title"] = "Register Page";
+    
+}
+
+
+<div class="wrapper">
+    <form id="registerform" asp-controller="Account" asp-action="Register" method="post">
+
+      <h1 class="h1 mb-3 fw-normal">Register</h1>
+      <h3 class="h3 mb-3 fw-normal">UserRegisterRequestModel</h3>
+
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" name="Email"  placeholder="name@example.com">
+        <label for="floatingInput">Email</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" name="Password" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password">
+        <label for="floatingConfirmPassword">Confirm Password</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingFistname" name="Firstname" placeholder="FirstName">
+        <label for="floatingFistname">First Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingLastname" name="Lastname" placeholder="LastName">
+        <label for="floatingLastname">Last Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="date" class="form-control" id="floatingDOB" name="DateOfBirth" placeholder="DOB">
+        <label for="floatingDOB">Date Of Birth</label>
+      </div>
+
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+      <a href ="">Back to list</a>
+      <p class="mt-5 mb-3 text-muted">© 2022</p>
+    </form>
+  </div>

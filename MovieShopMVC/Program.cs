@@ -9,8 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+
 // services registrations!!!
-// service injections , built in dependency, first class citizen, 
+// service injections , built in dependency injection, first class citizen, 
 builder.Services.AddScoped<IMovieService, MovieService>();
 // if we want test , just inject with movietestservice. 
 //builder.Services.AddScoped<IMovieService, MovieTestService>();
@@ -24,25 +27,43 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
 });
 
+
+
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+// false send confirmation email not working yet
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+//    .AddEntityFrameworkStores<MovieShopDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+
+    // app.UseMigrationsEndPoint();
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+//else
+//{
+
+//    app.UseMigrationsEndPoint();
+//}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+//app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.MapRazorPages();
 
 app.Run();
