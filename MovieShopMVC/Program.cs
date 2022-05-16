@@ -15,9 +15,20 @@ builder.Services.AddControllersWithViews();
 // services registrations!!!
 // service injections , built in dependency injection, first class citizen, 
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 // if we want test , just inject with movietestservice. 
 //builder.Services.AddScoped<IMovieService, MovieTestService>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+builder.Services.AddScoped<ICastRepository, CastRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+
+
+
+
+
 
 
 // inject dbcontext options with connection string into movieshipdbcontext. 

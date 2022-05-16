@@ -6,5 +6,9 @@ namespace ApplicationCore.Contracts.Repositories
     {
 
         List<Movie> GetTop30GlossingMovies();
+
+        Movie GetMovieById(int id);
+
+
     }
 }

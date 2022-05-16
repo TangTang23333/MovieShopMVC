@@ -1,5 +1,5 @@
 ﻿1. create an entity that you need based on table requirement 
-2. establish the connection string, where you want the db to be create.
+2. establish the connection string, where you want the db to be created.
 3. add to appsetting, easy to change in text file than c# codes. 
 4. install required libraries from nuget 
 5. frameworkcore.sqlserver both in web and infrastructure --> 
@@ -8,7 +8,8 @@
 7.DbContext abd DbSet:
 DbContetxt represents DB, DbSet represents tables. 
 
-8. create customized DbContext class that inherits from DbContext base class
+8. create customized DbContext class that inherits from DbContext base class with public properties of
+all dbsets. 
 9. inject DbContextOptions from program.cs with connection string into DbContext 
 10. create DbSet<Entity> in DbContext class, as a property of the class. 
 11.add migraiton has to be in folder which has dbcontext !!!!

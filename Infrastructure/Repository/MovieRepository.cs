@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
+using Infrastructure.Data;
 
 namespace Infrastructure.Repository
 {
@@ -9,6 +10,14 @@ namespace Infrastructure.Repository
         // dapper (ORM)  -> stackoverflow 
         // ado.net , MICROSOFT sql connection ,sqlcommand, 
         // ENTITY FRAMEWORK ==> LINQ 
+
+        private readonly MovieShopDbContext _context;
+        public MovieRepository(MovieShopDbContext context)
+        {
+            this._context = context;
+        }
+
+
         public List<Movie> GetTop30GlossingMovies()
         {
             // SQL Database 
@@ -19,24 +28,32 @@ namespace Infrastructure.Repository
             // SELECT top 30 * from Movie order by Revenue
             // movies.orderbydescnding(m=> m.Revenue).Take(30)
 
-            var movies = new List<Movie>()
-            {
-                  new Movie {Id = 1, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 2, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 3, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 4, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 5, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 6, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 7, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 8, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 9, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 10, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 11, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                  new Movie {Id = 12, Title="Inception", PosterURL="https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"}
-            };
+            var movies = this._context.Set<Movie>().OrderByDescending(m => m.Revenue).Take(30).ToList();
 
             return movies;
         }
+
+
+
+        public Movie? GetMovieById(int Id)
+
+        {
+
+            // how about using SP to perform optimized query and then call st to perform query?????
+            var trailers = this._context.Set<Trailer>().Where(trailer => trailer.MovieId == Id).ToList();
+            var genres = this._context.Set<MovieGenre>().Where(moviegenre => moviegenre.MovieId == Id).ToList();
+            var casts = this._context.Set<MovieCast>().Where(moviecast => moviecast.MovieId == Id).ToList();
+            var movie = this._context.Set<Movie>().SingleOrDefault(m => m.Id == Id);
+
+            movie.Casts = casts;
+            movie.Genres = genres;
+            movie.Trailers = trailers;
+
+
+            return movie;
+        }
+
+
 
 
     }

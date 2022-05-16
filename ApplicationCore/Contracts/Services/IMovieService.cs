@@ -5,6 +5,9 @@ namespace ApplicationCore.Contracts.Services
     public interface IMovieService
     {
         // 
-        List<MovieCardModel> GetTop30GlossingMovies();
+        public List<MovieCardModel> GetTop30GlossingMovies();
+
+
+        public MovieDetailInfoCardModel GetMovieById(int Id);
     }
 }

@@ -1,17 +1,92 @@
-﻿
+﻿@model ApplicationCore.Models.MovieDetailInfoCardModel
 
-@model  ApplicationCore.Models.MovieCardModel
+<div >
 
-<div style="display: flex">
-    <partial name="_MovieCardPartial" />
+    <div class="top" style="display: flex">
+        <img src="@Model.PosterURL"  style="height: 350px; width: 250px; margin-right: 30px;" />
 
-    <div class="card" >
-        
-        <h3>@Model.Title</h3>
+        <div class="middle">
 
-        <p>@Model.PosterURL</p>
-        <p>@Model.Id</p>
+            <h3>@Model.Title</h3>
 
+
+            <div class='brief'>
+                <p>@Model.Runtime | @Model.ReleaseDate </p>
+
+                <div class='tags' styles="display: flex; flex-direction: column; ">
+
+
+                    @foreach (var genre in @Model.Genres)
+                    {
+                        <p style="padding: 3px; border-radius: 20px; background-color:gray; color: white; width: 45px; font: bold;">@genre.Name</p>
+
+                    }
+                </div>
+
+            </div>
+            <h3>@Model.AvgRating </h3>
+            <p>@Model.Overview</p>
+
+
+        </div>
+
+        <div class="buttons">
+            <button class="btn-primary-light"> Review </button>
+            <button class="btn-primary-light"> Buy $9.90</button>
+        </div>
 
     </div>
-</div>
+
+    <div class="bottom" styles="display: flex;">
+            <div class="bottom-left">
+                <div class="facts">
+                    <h2> Movie Facts</h2>
+
+
+                    <div class='factrow'>
+                        <h4>Release Date </h4>  <h4>@Model.ReleaseDate</h4>
+                    </div>
+
+                    <div class='factrow'>
+                        <h4>Run Time </h4>  <h4>@Model.Runtime</h4>
+                    </div>
+
+                    <div class='factrow'>
+                        <h4>Box Office </h4>  <h4>@Model.Revenue</h4>
+                    </div>
+
+                    <div class='factrow'>
+                        <h4>Budget </h4>  <h4>@Model.Budget</h4>
+                    </div>
+
+                    <div class="Trailer">
+                        <h3>Trailer</h3>
+                        <h4>@Model.Title</h4>
+                    </div>
+
+
+                </div>
+
+
+                
+            </div>
+
+            <div class="bottom-right">
+
+                <h2>Cast</h2>
+
+
+                @foreach (var cast in @Model.Casts)
+                {
+                     <div class='actor' style="display:flex;">
+                    <img src={@cast.ProfilePath} style=" width: 20px; height:45px; border-radius:30px"/>
+                    <p>@cast.Name</p>
+                    <p>@cast.Character</p>
+                 </div>
+                }
+               
+
+            </div>
+
+        </div>
+    </div>

@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,13 +13,15 @@ namespace MovieShopMVC.Controllers
 
 
         private readonly IMovieService _movieService;
+        private readonly MovieShopDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IMovieService movieService)
+        public HomeController(ILogger<HomeController> logger, IMovieService movieService, MovieShopDbContext context)
         {
             _logger = logger;
             // need to initiate _movieService; find the implementation
             _movieService = movieService;
             // want my code rely on abstractions rathen than concrete types
+            _context = context;
         }
         // index
         // specify the type of http request

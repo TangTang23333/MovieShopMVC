@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Contracts.Services;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
@@ -35,9 +36,9 @@ namespace MovieShopMVC.Controllers
             // call Onion architecture or N -layer architecture 
             // 
 
-            var movieCards = _movieService.GetTop30GlossingMovies();
-            var movieCard = movieCards.Where(x => x.Id == id).SingleOrDefault();
-            return View(movieCard);
+
+            MovieDetailInfoCardModel movieDetail = _movieService.GetMovieById(id);
+            return View(movieDetail);
 
 
         }
@@ -84,25 +85,8 @@ namespace MovieShopMVC.Controllers
             }
         }
 
-        // GET: MovieController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: MovieController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
+
     }
 }
