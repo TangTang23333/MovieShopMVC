@@ -1,6 +1,6 @@
 ﻿namespace ApplicationCore.Models
 {
-    public class MovieDetailInfoCardModel
+    public class MovieDetailsModel
     {
 
         public int Id { get; set; }

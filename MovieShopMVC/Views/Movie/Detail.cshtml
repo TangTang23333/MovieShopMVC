@@ -1,4 +1,4 @@
-﻿@model ApplicationCore.Models.MovieDetailInfoCardModel
+﻿@model ApplicationCore.Models.MovieDetailsModel
 
 
 
@@ -6,18 +6,18 @@
 
 
     <div class="movie-summary" style="padding-left: 200px; display: flex; justify-content: space-around;">
-        <div class="col-2">
+        <div class="col-2" id="movie-poster">
             <img src="@Model.PosterURL" style="height: 350px; width: 250px; margin-right: 30px;" />
         </div>
 
 
-        <div class="col-5" style="padding-top: 10px;">
+        <div class="col-5" id="movie-info" style="padding-top: 10px;">
 
             <h1>@Model.Title</h1>
             <p style="color: gray;">@Model.TagLine</p>
 
             <div class='brief' style="display: flex; justify-content: space-between; color: gray; ">
-                <p style="font-weight: bold;">@Model.Runtime | @Convert.ToDateTime(Model.ReleaseDate).Year </p>
+                <p style="font-weight: bold;">@Model.Runtime m  | @Convert.ToDateTime(Model.ReleaseDate).Year </p>
 
                 <div class='tags' style="display: flex;">
 
@@ -30,114 +30,167 @@
                 </div>
 
             </div>
-            <p style="background-color: teal; border-radius: 5px; padding: 0px 5px;width: 30px;  ">@Model.AvgRating </p>
+            <p style="background-color: teal; border-radius: 5px; padding: 0px 5px; width: 34px; font-weight: bolder;  "> @Model.AvgRating </p>
             <p>@Model.Overview</p>
 
 
         </div>
 
-        <div class="col-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;  ">
-            <button data-bs-toggle="modal" data-bs-target="#ReviewModal" style="padding: 5px;  border-radius: 5px; width: 200px; height:50px; margin-bottom: 20px; color:white; background-color:black; border: 1px solid white; font-weight: bold; " class="btn-primary-dark"> <i class="far fa-edit" style="margin-right: 8px;"></i>Review </button>
-            
+        <div class="col-2" id="movie-buttons" style="display: flex; flex-direction: column; justify-content: center; align-items: center;  ">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#ReviewModal" style="padding: 5px;  border-radius: 5px; width: 200px; height:50px; margin-bottom: 20px; color:white; background-color:black; border: 1px solid white; font-weight: bold; " class="btn-primary-dark"> <i class="far fa-edit" style="margin-right: 8px;"></i>Review </button>
+
             <!-- ReviewModal -->
-            <div class="modal fade" id="ReviewModal" tabindex="-1" aria-labelledby="ReviewModalLabel" aria-hidden="true">
+
+            <div class="modal fade" id="ReviewModal" tabindex="-1" aria-labelledby="ReviewModalLabel" aria-hidden="true" style="color: black;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="ReviewModalLabel">Review</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="color: black;">
-                            
-                                What is Lorem Ipsum?
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            
+                        <div class="modal-body">
+                            <div class="rating-area" style="margin-bottom: 40px;">
+                                <label for="rating">Please rate this movie:</label>
+
+
+
+                                <!-- rating dropdown-->
+                                <select name="rating" id="rating">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <textarea rows="4" cols="50" style="" name="review-txt">  </textarea>
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button data-bs-toggle="modal" data-bs-target="#PurchaseModal" style="padding: 5px;  border-radius: 5px; width: 200px; height:50px; font-weight: bold; " class="btn-primary-dark"> Buy $9.90</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#PurchaseModal" style="display: flex;padding: 5px;  border-radius: 5px; width: 200px; height:50px; font-weight: bold; justify-content:center; align-items:center;  " class="btn-primary-dark">
+                @if (Model.Price != null)
+                {
+                    <p style="margin-bottom: 0px; justify-content:center; align-items:center;">Buy $@Model.Price</p>
+                }
+                else
+                {
+                    <p style="margin-bottom: 0px; justify-content:center; align-items:center;">Buy $9.9</p>
+                }
+
+            </button>
             <!-- PurchaseModal -->
-            <div class="modal fade" id="PurchaseModal" tabindex="-1" aria-labelledby="PurchaseModalLabel" aria-hidden="true">
+
+            <div class="modal fade" id="PurchaseModal" tabindex="-1" aria-labelledby="PurchaseModalLabel" aria-hidden="true" style="color: black;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="PurchaseModalLabel">Purchase</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Purchase</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="color: black;">
-                            What is Lorem Ipsum?
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <div class="modal-body" style="display: flex;">
+                            <p>
+                                Purchase movie @Model.Title  at  $@if (Model.Price != null)
+                                {
+                                <p style="margin-bottom: 0px; justify-content:center; align-items:center;">@Model.Price</p>
+                                    ;
+                                }
+                                else
+                                {
+                                <p style="margin-bottom: 0px; justify-content:center; align-items:center;">9.9</p>
+                                    ;
+                                }
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary">Purchase</button>
                         </div>
                     </div>
                 </div>
             </div>
+
 
 
 
         </div>
 
-
-
-
-
-
     </div>
 
 </div>
+
+
 
 <div class="row" style="display: flex;  ">
     <div class="col-3" style="background-color: #edede9; padding: 50px; margin-left: 0px; width: 530px; ">
         <div class="facts">
             <h2 style="margin-bottom: 50px; margin-top: 50px; "> MOVIE FACTS</h2>
 
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" style="background-color: #edede9;">
+                    <div class='factrow' style="display: flex; align-items:center;">
+                        <i style="width: 50px;" class="far fa-calendar-alt"></i>
+                        <p style="margin-bottom: 0px;width: 150px;">Release Date</p>
+                        <p style="margin-bottom: 0px;padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;"> @Convert.ToDateTime(Model.ReleaseDate).Date.ToString("d")</p>
+                    </div>
 
-            <div class='factrow' style="display: flex; align-items:center;">
-                <i style="width: 50px;" class="far fa-calendar-alt"></i>
-                <p style="margin-bottom: 0px;width: 150px;">Release Date</p>
-                <p style="margin-bottom: 0px;padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;"> @Convert.ToDateTime(Model.ReleaseDate).Date.ToString("d")</p>
-            </div>
-            <hr style="border: 1px solid #001d3d;" />
+                </li>
 
-            <div class='factrow' style="display: flex; align-items:center;">
-                <i style="width: 50px;" class="far fa-clock"></i>
-                <p style="margin-bottom: 0px;width: 150px; margin-bottom: 0px;">Run Time </p>
-                <p style=" margin-bottom: 0px; padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;">@Model.Runtime m</p>
-            </div>
-            <hr style="border: 1px solid #001d3d;" />
-            <div class='factrow' style="display: flex; align-items:center;">
-                <i style="width: 50px;" class="far fa-money-bill-alt"></i>
-                <p style="margin-bottom: 0px;width: 150px;">Box Office </p>
-                <p style=" margin-bottom: 0px;padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;">$@Model.Revenue</p>
-            </div>
-            <hr style="border: 1px solid #001d3d;" />
-            <div class='factrow' style="display: flex; align-items:center;">
-                <i style="width: 50px;" class="far fa-coin"></i>
-                <p style="margin-bottom: 0px;width: 150px; ">Budget </p>
-                <p style="  margin-bottom: 0px;padding: 0px 8px; background-color:black; color: white; border-radius: 10px; font-weight: bold;">$@Model.Budget</p>
-            </div>
-            <hr style="border: 1px solid #001d3d;" />
+                <li class="list-group-item" style="background-color: #edede9;">
+                    <div class='factrow' style="display: flex; align-items:center;">
+                        <i style="width: 50px;" class="far fa-clock"></i>
+                        <p style="margin-bottom: 0px;width: 150px; margin-bottom: 0px;">Run Time </p>
+                        <p style=" margin-bottom: 0px; padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;">@Model.Runtime m</p>
+                    </div>
 
+                </li>
+
+                <li class="list-group-item" style="background-color: #edede9;">
+                    <div class='factrow' style="display: flex; align-items:center;">
+                        <i style="width: 50px;" class="far fa-money-bill-alt"></i>
+                        <p style="margin-bottom: 0px;width: 150px;">Box Office </p>
+                        <p style=" margin-bottom: 0px;padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;">$@Model.Revenue</p>
+                    </div>
+
+                </li>
+
+                <li class="list-group-item" style="background-color: #edede9;">
+                    <div class='factrow' style="display: flex; align-items:center;">
+                        <i style="width: 50px;" class="far fa-coin"></i>
+                        <p style="margin-bottom: 0px;width: 150px; ">Budget </p>
+                        <p style="  margin-bottom: 0px;padding: 0px 8px; background-color:black; color: white; border-radius: 10px; font-weight: bold;">$@Model.Budget</p>
+                    </div>
+
+                </li>
+
+            </ul>
 
             <div class="Trailer" style="margin-top: 30px; ">
                 <h3 style="margin-bottom: 60px; ">TRAILERS</h3>
+                <ul class="list-group list-group-flush" >
+                    @foreach (var trailer in @Model.Trailers)
+                    {
+                        <li class="list-group-item" style="background-color: #edede9;">
+                            <div style="display: flex;">
+                                <i class="fab fa-youtube" style="width: 50px;"></i>
+                                <a href="@trailer.TrailerURL" style="text-decoration: none;"><p>@trailer.Name</p></a>
+                            </div>
+                        </li>
+                    }
+                </ul>
 
-                @foreach (var trailer in @Model.Trailers)
-                {
-                    <div style="display: flex;">
-                        <i class="fab fa-youtube" style="width: 50px;"></i>
-                        <a href="@trailer.TrailerURL" style="text-decoration: none;"><p>@trailer.Name</p></a>
-                    </div>
-                }
             </div>
 
 
@@ -147,24 +200,30 @@
 
     </div>
 
-    <div class="col-6" style="padding: 50px; margin-left: 200px; ">
+    <div class="col-6" style="padding: 50px 50px 50px 0px; margin-left: 180px; ">
 
         <h2 style="margin-bottom: 50px; margin-top: 50px;">CAST</h2>
         <hr style="border: 1px solid lightgray;" />
+        <ul class="list-group list-group-flush" >
+            @foreach (var cast in @Model.Casts)
+            {
+                <li class="list-group-item" >
+                    <div class='actor' style="display:flex;  align-items: center;">
+                        <a asp-controller="Cast" asp-action="Detail" asp-route-id="@cast.Id">
+                            <img src="@cast.ProfilePath" style=" width: 60px; height:60px; border-radius:30px; margin-right: 80px;" onclick="" />
+                        </a>
+                        <div style="width: 300px;"><p>@cast.Name</p></div>
+                        <div><p>@cast.Character</p></div>
 
-        @foreach (var cast in @Model.Casts)
-        {
-            <div class='actor' style="display:flex;  align-items: center;">
-                <img src={@cast.ProfilePath} style=" width: 20px; height:45px; border-radius:30px; margin-right: 80px;" />
-                <div style="width: 300px;"><p>@cast.Name</p></div>
-                <div><p>@cast.Character</p></div>
+                    </div>
+                </li>
 
-            </div>
-            <hr style="border: 1px solid lightgray; with: 400px;" />
-        }
-
+            }
+        </ul>
 
     </div>
+
+</div>
 
 
 

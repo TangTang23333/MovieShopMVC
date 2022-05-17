@@ -9,6 +9,6 @@ namespace ApplicationCore.Contracts.Repositories
 
         Movie GetById(int id);
 
-
+        IEnumerable<Review> GetReviews(int Id);
     }
 }

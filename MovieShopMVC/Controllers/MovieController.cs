@@ -37,7 +37,7 @@ namespace MovieShopMVC.Controllers
             // 
 
 
-            MovieDetailInfoCardModel movieDetail = _movieService.GetMovieDetailsById(id);
+            MovieDetailsModel movieDetail = _movieService.GetMovieDetailsById(id);
             return View(movieDetail);
 
 

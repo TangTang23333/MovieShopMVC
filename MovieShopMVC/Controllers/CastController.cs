@@ -1,20 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApplicationCore.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class CastController : Controller
     {
-        // GET: CastController
-        public ActionResult Index()
+        private readonly ICastService _castService;
+
+        public CastController(ICastService castService)
         {
-            return View();
+            this._castService = castService;
         }
 
-        // GET: CastController/Details/5
-        public ActionResult Details(int id)
+
+        // GET: CastController/Detail/5
+        public ActionResult Detail(int id)
         {
-            return View();
+
+            var cast = this._castService.GetById(id);
+            return View(cast);
         }
 
         // GET: CastController/Create

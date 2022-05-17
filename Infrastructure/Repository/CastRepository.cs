@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -16,9 +17,14 @@ namespace Infrastructure.Repository
 
 
 
+
         public Cast GetById(int Id)
         {
-            throw new NotImplementedException();
+
+            var cast = this._context.Set<Cast>().Include(c => c.Movies).ThenInclude(c => c.Movie)
+                .FirstOrDefault(c => c.Id == Id);
+
+            return cast;
         }
 
         public IEnumerable<Cast> GetAll()

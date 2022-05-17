@@ -29,6 +29,9 @@ namespace Infrastructure.Services
             //var movieRepo = new MovieRepository();
             var movies = _movieRepository.GetTop30GlossingMovies();
 
+
+
+
             var movieCards = new List<MovieCardModel>();
 
             foreach (var movie in movies)
@@ -46,15 +49,17 @@ namespace Infrastructure.Services
 
 
 
-        public MovieDetailInfoCardModel GetMovieDetailsById(int Id)
+        public MovieDetailsModel GetMovieDetailsById(int Id)
         {
 
 
 
             var movie = _movieRepository.GetById(Id);
 
+            var reviews = _movieRepository.GetReviews(Id);
 
 
+            decimal rating = Math.Round(reviews.Average(e => e.Rating), 1);
 
 
             foreach (var cast in movie.Casts)
@@ -73,16 +78,16 @@ namespace Infrastructure.Services
             }
 
 
-            var test = Convert.ToDateTime(movie.ReleaseDate);
 
-            var movieDetail = new MovieDetailInfoCardModel
+
+            var movieDetail = new MovieDetailsModel
             {
                 Id = movie.Id,
                 Title = movie.Title,
                 PosterURL = movie.PosterURL,
                 Overview = movie.Overview,
                 Price = movie.Price,
-                AvgRating = (decimal?)8.9,
+                AvgRating = rating,
                 Runtime = movie.RunTime,
                 Revenue = movie.Revenue,
                 Budget = movie.Budget,

@@ -54,6 +54,17 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
     }
 
 
+    public IEnumerable<Review> GetReviews(int Id)
+    {
+        var reviews = this._context.Set<Review>()
+            .Include(r => r.Movie)
+            .Where(r => r.MovieId == Id);
+
+
+        return reviews;
+    }
+
+
 
 
 
