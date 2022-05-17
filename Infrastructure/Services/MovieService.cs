@@ -7,14 +7,17 @@ namespace Infrastructure.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly ICastRepository _castRepository;
-        private readonly IGenreRepository _genreRepository;
+        List<GenreModel> genres = new List<GenreModel>();
+        List<CastModel> casts = new List<CastModel>();
+        List<TrailerModel> trailers = new List<TrailerModel>();
 
-        public MovieService(IMovieRepository movieRepository, ICastRepository castRepository, IGenreRepository genreRepository)
+        public MovieService(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
-            _castRepository = castRepository;
-            _genreRepository = genreRepository;
+
+
+
+
         }
 
 
@@ -43,55 +46,58 @@ namespace Infrastructure.Services
 
 
 
-        public MovieDetailInfoCardModel GetMovieById(int Id)
+        public MovieDetailInfoCardModel GetMovieDetailsById(int Id)
         {
-            var movie = _movieRepository.GetMovieById(Id);
-            var castEntity = _castRepository.GetAll();
-            var genreEntity = _genreRepository.GetAll();
 
 
 
-            var casts = from c in movie.Casts
-                        join cc in castEntity
-                        on c.CastId equals cc.Id
-                        select new CastModel
-                        {
-                            Id = cc.Id,
-                            Name = cc.Name,
-                            ProfilePath = cc.ProfilePath
-                        };
-
-            var genres = from g in movie.Genres
-                         join gg in genreEntity
-                         on g.GenreId equals gg.Id
-                         select new GenreModel
-                         {
-                             Name = gg.Name
-                         };
+            var movie = _movieRepository.GetById(Id);
 
 
-            return new MovieDetailInfoCardModel
+
+
+
+            foreach (var cast in movie.Casts)
+            {
+                casts.Add(new CastModel { Character = cast.Character, Id = cast.CastId, ProfilePath = cast.Cast.ProfilePath, Name = cast.Cast.Name });
+            }
+
+            foreach (var genre in movie.Genres)
+            {
+                genres.Add(new GenreModel { Id = genre.Genre.Id, Name = genre.Genre.Name });
+            }
+
+            foreach (var trailer in movie.Trailers)
+            {
+                trailers.Add(new TrailerModel { Id = trailer.Id, Name = trailer.Name, TrailerURL = trailer.TrailerURL });
+            }
+
+
+            var test = Convert.ToDateTime(movie.ReleaseDate);
+
+            var movieDetail = new MovieDetailInfoCardModel
             {
                 Id = movie.Id,
-
                 Title = movie.Title,
                 PosterURL = movie.PosterURL,
                 Overview = movie.Overview,
-
                 Price = movie.Price,
-
                 AvgRating = (decimal?)8.9,
-
                 Runtime = movie.RunTime,
-
-                Genres = genres.ToList(),/////
-
                 Revenue = movie.Revenue,
                 Budget = movie.Budget,
                 ReleaseDate = movie.ReleaseDate,
-                Trailers = movie.Trailers.Select(t => t.TrailerURL).ToList(),
-                Casts = casts.ToList()
+                Genres = genres,
+                Casts = casts,
+                Trailers = trailers,
+                TagLine = movie.Tagline
+
+
             };
+            return movieDetail;
+
+
+
         }
 
 

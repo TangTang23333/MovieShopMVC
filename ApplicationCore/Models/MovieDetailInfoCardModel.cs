@@ -8,6 +8,7 @@
         public string Title { get; set; }
         public string? PosterURL { get; set; }
         public string? Overview { get; set; }
+        public string? TagLine { get; set; }
 
         public decimal? Price { get; set; }
 
@@ -17,7 +18,7 @@
 
 
         public List<GenreModel>? Genres { get; set; }
-        public List<string>? Trailers { get; set; }
+        public List<TrailerModel>? Trailers { get; set; }
 
         public decimal? Revenue { get; set; }
         public decimal? Budget { get; set; }

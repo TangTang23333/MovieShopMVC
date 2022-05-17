@@ -25,13 +25,13 @@ namespace ApplicationCore.Entities
         [MaxLength(16)]
         public string? PhoneNumber { get; set; }
 
-        public byte? TwoFactorEnabled { get; set; }
+        public bool? TwoFactorEnabled { get; set; }
         [Column(TypeName = "datetime2(7)")]
         public DateTime? LockoutEndDate { get; set; }
         [Column(TypeName = "datetime2(7)")]
         public DateTime? LastLoginDateTime { get; set; }
 
-        public byte? IsLocked { get; set; }
+        public bool? IsLocked { get; set; }
         public int? AccessFailedCount { get; set; }
 
         // NAVIGATION 

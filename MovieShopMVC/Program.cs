@@ -20,7 +20,6 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 //builder.Services.AddScoped<IMovieService, MovieTestService>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<ICastRepository, CastRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 

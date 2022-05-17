@@ -2,12 +2,12 @@
 
 namespace ApplicationCore.Contracts.Repositories
 {
-    public interface IMovieRepository
+    public interface IMovieRepository : IRepository<Movie>
     {
 
         List<Movie> GetTop30GlossingMovies();
 
-        Movie GetMovieById(int id);
+        Movie GetById(int id);
 
 
     }

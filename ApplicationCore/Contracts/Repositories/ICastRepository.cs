@@ -2,10 +2,10 @@
 
 namespace ApplicationCore.Contracts.Repositories
 {
-    public interface ICastRepository
+    public interface ICastRepository : IRepository<Cast>
     {
 
-        public Cast GetMovies(int Id);
-        public IQueryable<Cast> GetAll();
+
+
     }
 }

@@ -1,46 +1,45 @@
 ﻿using ApplicationCore.Contracts.Repositories;
-using ApplicationCore.Entities;
 using Infrastructure.Data;
-
 namespace Infrastructure.Repository
 {
-    public class CastRepository : ICastRepository
+    public class Repository<T> : IRepository<T> where T : class
+
+
     {
 
-        private readonly MovieShopDbContext _context;
-        public CastRepository(MovieShopDbContext context)
+        protected readonly MovieShopDbContext _context;
+
+        public Repository(MovieShopDbContext context)
         {
             this._context = context;
         }
 
-
-
-
-        public Cast GetById(int Id)
+        public T Add(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Cast> GetAll()
+        public T Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Cast Add(Cast entity)
+        public IEnumerable<T> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Cast Update(Cast entity)
+        public T GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Cast Delete(int Id)
+        public T Update(T entity)
         {
             throw new NotImplementedException();
         }
     }
+
+
+
 }
-
-

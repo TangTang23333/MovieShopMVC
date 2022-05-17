@@ -1,92 +1,170 @@
 ﻿@model ApplicationCore.Models.MovieDetailInfoCardModel
 
-<div >
-
-    <div class="top" style="display: flex">
-        <img src="@Model.PosterURL"  style="height: 350px; width: 250px; margin-right: 30px;" />
-
-        <div class="middle">
-
-            <h3>@Model.Title</h3>
 
 
-            <div class='brief'>
-                <p>@Model.Runtime | @Model.ReleaseDate </p>
+<div class="row" style=" background-color: black; width: 100%; margin: 0px; padding: 0px; color: white;  ">
 
-                <div class='tags' styles="display: flex; flex-direction: column; ">
+
+    <div class="movie-summary" style="padding-left: 200px; display: flex; justify-content: space-around;">
+        <div class="col-2">
+            <img src="@Model.PosterURL" style="height: 350px; width: 250px; margin-right: 30px;" />
+        </div>
+
+
+        <div class="col-5" style="padding-top: 10px;">
+
+            <h1>@Model.Title</h1>
+            <p style="color: gray;">@Model.TagLine</p>
+
+            <div class='brief' style="display: flex; justify-content: space-between; color: gray; ">
+                <p style="font-weight: bold;">@Model.Runtime | @Convert.ToDateTime(Model.ReleaseDate).Year </p>
+
+                <div class='tags' style="display: flex;">
 
 
                     @foreach (var genre in @Model.Genres)
                     {
-                        <p style="padding: 3px; border-radius: 20px; background-color:gray; color: white; width: 45px; font: bold;">@genre.Name</p>
+                        <p style="padding: 0px 5px;  margin-right: 5px; border-radius: 13px; background-color:gray; color: white; font-weight: bold;">@genre.Name</p>
 
                     }
                 </div>
 
             </div>
-            <h3>@Model.AvgRating </h3>
+            <p style="background-color: teal; border-radius: 5px; padding: 0px 5px;width: 30px;  ">@Model.AvgRating </p>
             <p>@Model.Overview</p>
 
 
         </div>
 
-        <div class="buttons">
-            <button class="btn-primary-light"> Review </button>
-            <button class="btn-primary-light"> Buy $9.90</button>
-        </div>
-
-    </div>
-
-    <div class="bottom" styles="display: flex;">
-            <div class="bottom-left">
-                <div class="facts">
-                    <h2> Movie Facts</h2>
-
-
-                    <div class='factrow'>
-                        <h4>Release Date </h4>  <h4>@Model.ReleaseDate</h4>
+        <div class="col-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;  ">
+            <button data-bs-toggle="modal" data-bs-target="#ReviewModal" style="padding: 5px;  border-radius: 5px; width: 200px; height:50px; margin-bottom: 20px; color:white; background-color:black; border: 1px solid white; font-weight: bold; " class="btn-primary-dark"> <i class="far fa-edit" style="margin-right: 8px;"></i>Review </button>
+            
+            <!-- ReviewModal -->
+            <div class="modal fade" id="ReviewModal" tabindex="-1" aria-labelledby="ReviewModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ReviewModalLabel">Review</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="color: black;">
+                            
+                                What is Lorem Ipsum?
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
-
-                    <div class='factrow'>
-                        <h4>Run Time </h4>  <h4>@Model.Runtime</h4>
-                    </div>
-
-                    <div class='factrow'>
-                        <h4>Box Office </h4>  <h4>@Model.Revenue</h4>
-                    </div>
-
-                    <div class='factrow'>
-                        <h4>Budget </h4>  <h4>@Model.Budget</h4>
-                    </div>
-
-                    <div class="Trailer">
-                        <h3>Trailer</h3>
-                        <h4>@Model.Title</h4>
-                    </div>
-
-
                 </div>
-
-
-                
             </div>
 
-            <div class="bottom-right">
-
-                <h2>Cast</h2>
-
-
-                @foreach (var cast in @Model.Casts)
-                {
-                     <div class='actor' style="display:flex;">
-                    <img src={@cast.ProfilePath} style=" width: 20px; height:45px; border-radius:30px"/>
-                    <p>@cast.Name</p>
-                    <p>@cast.Character</p>
-                 </div>
-                }
-               
-
+            <button data-bs-toggle="modal" data-bs-target="#PurchaseModal" style="padding: 5px;  border-radius: 5px; width: 200px; height:50px; font-weight: bold; " class="btn-primary-dark"> Buy $9.90</button>
+            <!-- PurchaseModal -->
+            <div class="modal fade" id="PurchaseModal" tabindex="-1" aria-labelledby="PurchaseModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="PurchaseModalLabel">Purchase</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="color: black;">
+                            What is Lorem Ipsum?
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
 
         </div>
+
+
+
+
+
+
     </div>
+
+</div>
+
+<div class="row" style="display: flex;  ">
+    <div class="col-3" style="background-color: #edede9; padding: 50px; margin-left: 0px; width: 530px; ">
+        <div class="facts">
+            <h2 style="margin-bottom: 50px; margin-top: 50px; "> MOVIE FACTS</h2>
+
+
+            <div class='factrow' style="display: flex; align-items:center;">
+                <i style="width: 50px;" class="far fa-calendar-alt"></i>
+                <p style="margin-bottom: 0px;width: 150px;">Release Date</p>
+                <p style="margin-bottom: 0px;padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;"> @Convert.ToDateTime(Model.ReleaseDate).Date.ToString("d")</p>
+            </div>
+            <hr style="border: 1px solid #001d3d;" />
+
+            <div class='factrow' style="display: flex; align-items:center;">
+                <i style="width: 50px;" class="far fa-clock"></i>
+                <p style="margin-bottom: 0px;width: 150px; margin-bottom: 0px;">Run Time </p>
+                <p style=" margin-bottom: 0px; padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;">@Model.Runtime m</p>
+            </div>
+            <hr style="border: 1px solid #001d3d;" />
+            <div class='factrow' style="display: flex; align-items:center;">
+                <i style="width: 50px;" class="far fa-money-bill-alt"></i>
+                <p style="margin-bottom: 0px;width: 150px;">Box Office </p>
+                <p style=" margin-bottom: 0px;padding: 0px 8px;background-color:black; color: white; border-radius: 10px;font-weight: bold;">$@Model.Revenue</p>
+            </div>
+            <hr style="border: 1px solid #001d3d;" />
+            <div class='factrow' style="display: flex; align-items:center;">
+                <i style="width: 50px;" class="far fa-coin"></i>
+                <p style="margin-bottom: 0px;width: 150px; ">Budget </p>
+                <p style="  margin-bottom: 0px;padding: 0px 8px; background-color:black; color: white; border-radius: 10px; font-weight: bold;">$@Model.Budget</p>
+            </div>
+            <hr style="border: 1px solid #001d3d;" />
+
+
+            <div class="Trailer" style="margin-top: 30px; ">
+                <h3 style="margin-bottom: 60px; ">TRAILERS</h3>
+
+                @foreach (var trailer in @Model.Trailers)
+                {
+                    <div style="display: flex;">
+                        <i class="fab fa-youtube" style="width: 50px;"></i>
+                        <a href="@trailer.TrailerURL" style="text-decoration: none;"><p>@trailer.Name</p></a>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="col-6" style="padding: 50px; margin-left: 200px; ">
+
+        <h2 style="margin-bottom: 50px; margin-top: 50px;">CAST</h2>
+        <hr style="border: 1px solid lightgray;" />
+
+        @foreach (var cast in @Model.Casts)
+        {
+            <div class='actor' style="display:flex;  align-items: center;">
+                <img src={@cast.ProfilePath} style=" width: 20px; height:45px; border-radius:30px; margin-right: 80px;" />
+                <div style="width: 300px;"><p>@cast.Name</p></div>
+                <div><p>@cast.Character</p></div>
+
+            </div>
+            <hr style="border: 1px solid lightgray; with: 400px;" />
+        }
+
+
+    </div>
+
+
+

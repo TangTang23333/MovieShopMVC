@@ -8,6 +8,6 @@ namespace ApplicationCore.Contracts.Services
         public List<MovieCardModel> GetTop30GlossingMovies();
 
 
-        public MovieDetailInfoCardModel GetMovieById(int Id);
+        public MovieDetailInfoCardModel GetMovieDetailsById(int Id);
     }
 }
