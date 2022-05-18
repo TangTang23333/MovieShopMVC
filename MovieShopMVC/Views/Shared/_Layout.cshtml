@@ -38,16 +38,30 @@
                                 GENRES
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Comedy</a></li>
-                                <li><a class="dropdown-item" href="#">Crime</a></li>
-                                <li><a class="dropdown-item" href="#">Documentary</a></li>
-                                <li><a class="dropdown-item" href="#">Fiction</a></li>
-                                <li><a class="dropdown-item" href="#">Horror</a></li>
-                                <li><a class="dropdown-item" href="#">Kids</a></li>
-                                <li><a class="dropdown-item" href="#">Musicals</a></li>
-                                <li><a class="dropdown-item" href="#">Romance</a></li>
-                                <li><a class="dropdown-item" href="#">World Cinema</a></li>
+                                <!-- how to use model in navbar???-->
+                               @* @foreach (var g in @Model.Genres)
+                                {
+                                   <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genreId="@g.Id">@g.Name</a></li>
+                                }*@
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Action">Action</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Adventure">Adventure</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Animation">Animation</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Comedy">Comedy</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Crime">Crime</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Documentary">Documentary</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Drama">Drama</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Family">Family</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Fantasy">Fantasy</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="History">History</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Horror">Horror</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Music">Music</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Mystery">Mystery</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Romance">Romance</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Science Fiction">Science Fiction</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Thriller">Thriller</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="TV Movie">TV Movie</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="War">War</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="MoviesByGenre" asp-route-genre="Western">Western</a></li>
 
                                 <li>
                                     <hr class="dropdown-divider">

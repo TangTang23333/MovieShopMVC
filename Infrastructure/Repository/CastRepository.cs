@@ -18,34 +18,41 @@ namespace Infrastructure.Repository
 
 
 
-        public Cast GetById(int Id)
+        public Task<Cast> GetById(int Id)
         {
 
             var cast = this._context.Set<Cast>().Include(c => c.Movies).ThenInclude(c => c.Movie)
-                .FirstOrDefault(c => c.Id == Id);
+                .FirstOrDefaultAsync(c => c.Id == Id);
 
             return cast;
         }
 
-        public IEnumerable<Cast> GetAll()
+        public Task<Cast> Add(Cast entity)
         {
             throw new NotImplementedException();
         }
 
-        public Cast Add(Cast entity)
+
+
+        public Task<Cast> Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Cast Update(Cast entity)
+
+
+        public Task<List<Cast>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Cast Delete(int Id)
+
+        public Task<Cast> Update(Cast entity)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
 

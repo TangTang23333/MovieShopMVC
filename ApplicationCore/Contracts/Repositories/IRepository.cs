@@ -7,13 +7,13 @@
 
 
 
-        T GetById(int Id);
+        Task<T> GetById(int Id);
 
-        IEnumerable<T> GetAll();
+        Task<List<T>> GetAll();
 
-        T Add(T entity);
-        T Update(T entity);
-        T Delete(int Id);
+        Task<T> Add(T entity);
+        Task<T> Update(T entity);
+        Task<T> Delete(int Id);
 
 
 

@@ -7,7 +7,7 @@ namespace ApplicationCore.Contracts.Services
 
     {
 
-        CastDetailsModel GetById(int Id);
+        Task<CastDetailsModel> GetById(int Id);
 
     }
 }

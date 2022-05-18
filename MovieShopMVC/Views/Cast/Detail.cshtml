@@ -40,32 +40,39 @@
 
 <div class="row" style="display: flex;  justify-content: center; align-items: center;">
    
-    <div class="col-6" style="padding: 50px 50px 50px 0px; margin-left: 180px; ">
+    <div class="col-6" style="padding: 50px 50px 50px 0px;">
 
-        <h2 style="margin-bottom: 50px; margin-top: 50px;">CAST</h2>
-        <hr style="border: 1px solid lightgray;" />
-        <ul class="list-group list-group-flush" >
+        
+        <div class ="container-fluid" style="justify-content：center;">
+            <div class="row">
+        
             @foreach (var movie in @Model.Movies)
             {
-                <li class="list-group-item" >
-                    <div class='actor' style="display:flex;  align-items: center;">
+               
+                    <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
 
                         <a asp-action="Detail" asp-controller="Movie" asp-route-id="@movie.Id">
-                            <img src="@movie.PosterURL" style=" width: 60px; height:60px; border-radius:30px; margin-right: 80px;" />
+                            <partial name="_MovieCardPartial" model="movie" />
                         </a>
                         
-                        <div style="width: 300px;"><p>@movie.Title</p></div>
+                        @*<div style="width: 300px;"><p>@movie.Title</p></div>*@
                         
 
                     </div>
-                </li>
+               
 
             }
-        </ul>
+      
 
     </div>
 
 </div>
+
+
+
+
+
+                
 
 
 

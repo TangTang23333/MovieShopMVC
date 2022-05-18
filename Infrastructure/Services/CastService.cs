@@ -16,9 +16,9 @@ namespace Infrastructure.Services
         }
 
 
-        public CastDetailsModel GetById(int Id)
+        public async Task<CastDetailsModel> GetById(int Id)
         {
-            var cast = _castRepository.GetById(Id);
+            var cast = await _castRepository.GetById(Id);
 
 
 
@@ -31,6 +31,8 @@ namespace Infrastructure.Services
                         Id = m.Movie.Id,
                         PosterURL = m.Movie.PosterURL,
                         Title = m.Movie.Title
+
+
                     });
             }
 

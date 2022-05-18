@@ -1,14 +1,20 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Contracts.Repositories
 {
     public interface IMovieRepository : IRepository<Movie>
     {
 
-        List<Movie> GetTop30GlossingMovies();
+        Task<List<Movie>> GetTop30GlossingMovies();
 
-        Movie GetById(int id);
+        Task<Movie> GetById(int id);
 
-        IEnumerable<Review> GetReviews(int Id);
+        Task<List<Review>> GetReviews(int Id);
+        // totalcount, pagesize, pagenumber, totalpages
+        //Task<(List<Movie>, int totalCount, int totalPages)> GetMoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1);
+        Task<PageResult<Movie>> GetMoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1);
+        Task<List<Genre>> GetGenreList();
+
     }
 }

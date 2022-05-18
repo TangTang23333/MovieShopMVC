@@ -20,7 +20,7 @@ namespace MovieShopMVC.Controllers
 
 
         // GET: Movie/Detail/5
-        public ActionResult Detail(int id)
+        public async Task<ActionResult> Detail(int id)
         {
 
             // go to db Movie table and get the movie by id==1
@@ -36,11 +36,31 @@ namespace MovieShopMVC.Controllers
             // call Onion architecture or N -layer architecture 
             // 
 
+            // Remote DB
+            // CPU operation      => calculations, 
+            // I/O bound operation  => DB calls, files, images, videos, 
 
-            MovieDetailsModel movieDetail = _movieService.GetMovieDetailsById(id);
+
+
+
+            MovieDetailsModel movieDetail = await _movieService.GetMovieDetailsById(id);
             return View(movieDetail);
 
 
+        }
+
+        // get movies by genre 
+
+        public ActionResult MoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1)
+        {
+
+            var movies = _movieService.GetMoviesByGenre(genre);
+
+
+
+
+
+            return View("../Home/Index", movies);
         }
 
         // GET: MovieController/Create

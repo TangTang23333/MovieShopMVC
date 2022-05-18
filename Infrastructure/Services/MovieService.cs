@@ -22,12 +22,12 @@ namespace Infrastructure.Services
 
 
 
-        public List<MovieCardModel> GetTop30GlossingMovies()
+        public async Task<List<MovieCardModel>> GetTop30GlossingMovies()
         {
             // call the movierepository class
             // get the entity class data and map them in to model class data
             //var movieRepo = new MovieRepository();
-            var movies = _movieRepository.GetTop30GlossingMovies();
+            var movies = await _movieRepository.GetTop30GlossingMovies();
 
 
 
@@ -49,17 +49,55 @@ namespace Infrastructure.Services
 
 
 
-        public MovieDetailsModel GetMovieDetailsById(int Id)
+        public async Task<PageResultSet<MovieCardModel>> GetMoviesByGenre(string genre, int pageSize, int pageNumber)
+        {
+            // call the movierepository class
+            // get the entity class data and map them in to model class data
+            //var movieRepo = new MovieRepository();
+
+
+
+            var moviesByPages = await _movieRepository.GetMoviesByGenre(genre);  // GetMoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1)
+
+
+            //PageResultSet<Movie>(movies, pageNumber, pageSize, totalMovieCount);
+            var movieCards = new List<MovieCardModel>();
+
+
+
+            foreach (var movie in moviesByPages.Data)
+            {
+                movieCards.Add(new MovieCardModel
+                {
+                    Id = movie.Id,
+                    PosterURL = movie.PosterURL,
+                    Title = movie.Title
+                });
+            }
+
+
+
+            return new PageResultSet<MovieCardModel>(movieCards, pageNumber, pageSize, moviesByPages.Count);
+        }
+
+
+
+        public async Task<MovieDetailsModel> GetMovieDetailsById(int Id)
         {
 
 
 
-            var movie = _movieRepository.GetById(Id);
+            var movie = await _movieRepository.GetById(Id);
 
-            var reviews = _movieRepository.GetReviews(Id);
+            var reviews = await _movieRepository.GetReviews(Id);
+            decimal rating = 0;
+
+            if (reviews is null)
+            {
+                rating = Math.Round(reviews.Average(e => e.Rating), 1);
+            }
 
 
-            decimal rating = Math.Round(reviews.Average(e => e.Rating), 1);
 
 
             foreach (var cast in movie.Casts)
@@ -103,6 +141,21 @@ namespace Infrastructure.Services
 
 
 
+        }
+
+        public async Task<List<GenreModel>> GetGenreList()
+        {
+            var genresTb = await _movieRepository.GetGenreList();
+
+            var genres = new List<GenreModel>();
+
+            foreach (var genre in genresTb)
+            {
+                genres.Add(new GenreModel { Id = genre.Id, Name = genre.Name });
+            }
+
+
+            return genres;
         }
 
 

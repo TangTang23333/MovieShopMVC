@@ -14,30 +14,42 @@ namespace Infrastructure.Repository
             this._context = context;
         }
 
-        public T Add(T entity)
+
+
+        public virtual Task<T> Add(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public T Delete(int Id)
+
+
+
+        public virtual Task<T> Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll()
+
+
+        public virtual Task<List<T>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public T GetById(int Id)
+
+
+        public virtual Task<T> GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public T Update(T entity)
+
+
+        public virtual Task<T> Update(T entity)
         {
             throw new NotImplementedException();
         }
+
     }
 
 
