@@ -55,17 +55,18 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
     }
 
 
-    public async Task<PageResultSet<Movie>> GetMoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1)
+    public async Task<PageResultSet<Movie>> GetMoviesByGenre(string genre, int pageNumber = 1, int pageSize = 30)
     {
 
-        var genreId = this._context.Set<Genre>().FirstOrDefaultAsync(g => g.Name == genre).Id;
+
+        var genreId = this._context.Set<Genre>().FirstOrDefault(g => g.Name == genre).Id;
 
         var totalMovieCount = await this._context.Set<MovieGenre>().Where(m => m.GenreId == genreId).CountAsync();
 
         var movies = await this._context.Set<MovieGenre>()
             .Where(mg => mg.GenreId == genreId)
             .Include(m => m.Movie)
-            .OrderBy(m => m.Movie.Revenue)
+            .OrderByDescending(m => m.Movie.Revenue)
             .Select(mg => new Movie { Id = mg.MovieId, Title = mg.Movie.Title, PosterURL = mg.Movie.PosterURL })
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)

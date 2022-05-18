@@ -5,27 +5,27 @@ namespace Infrastructure.Repository
 {
     public class PurchaseRepository : IPurchaseRepository
     {
-        public Purchase Add(Purchase entity)
+        public Task<Purchase> Add(Purchase entity)
         {
             throw new NotImplementedException();
         }
 
-        public Purchase Delete(int Id)
+        public Task<Purchase> Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Purchase> GetAll()
+        public Task<List<Purchase>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Purchase GetById(int Id)
+        public Task<Purchase> GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Purchase Update(Purchase entity)
+        public Task<Purchase> Update(Purchase entity)
         {
             throw new NotImplementedException();
         }

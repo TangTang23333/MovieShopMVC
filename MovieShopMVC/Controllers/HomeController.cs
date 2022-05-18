@@ -26,7 +26,7 @@ namespace MovieShopMVC.Controllers
         // index
         // specify the type of http request
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // newing up 
             // we can have some higher level framework to create instances. 
@@ -35,7 +35,7 @@ namespace MovieShopMVC.Controllers
 
             // ==== tried to pass deveral models using dynamic
             //dynamic homeContent = new ExpandoObject();
-            var movieCards = _movieService.GetTop30GlossingMovies();
+            var movieCards = await _movieService.GetTop30GlossingMovies();
 
 
 
@@ -55,12 +55,7 @@ namespace MovieShopMVC.Controllers
 
         [HttpGet]
         // https://localhost:7169/home/topratedmovies
-        public IActionResult TopRatedMovies()
-        {
-            //return View();
-            //specify the view file name to return 
-            return View("Privacy");
-        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

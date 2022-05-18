@@ -5,27 +5,27 @@ namespace Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public User Add(User entity)
+        public Task<User> Add(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public User Delete(int Id)
+        public Task<User> Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll()
+        public Task<List<User>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public User GetById(int Id)
+        public Task<User> GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public User Update(User entity)
+        public Task<User> Update(User entity)
         {
             throw new NotImplementedException();
         }

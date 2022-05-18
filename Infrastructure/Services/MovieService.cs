@@ -49,7 +49,7 @@ namespace Infrastructure.Services
 
 
 
-        public async Task<PageResultSet<MovieCardModel>> GetMoviesByGenre(string genre, int pageSize, int pageNumber)
+        public async Task<PageResultSet<MovieCardModel>> GetMoviesByGenre(string genre, int pageNumber = 1, int pageSize = 30)
         {
             // call the movierepository class
             // get the entity class data and map them in to model class data
@@ -57,7 +57,7 @@ namespace Infrastructure.Services
 
 
 
-            var moviesByPages = await _movieRepository.GetMoviesByGenre(genre);  // GetMoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1)
+            var moviesByPages = await _movieRepository.GetMoviesByGenre(genre, pageNumber, pageSize);
 
 
             //PageResultSet<Movie>(movies, pageNumber, pageSize, totalMovieCount);

@@ -1,0 +1,88 @@
+﻿@model ApplicationCore.Models.PageResultSet<ApplicationCore.Models.MovieCardModel>
+
+@{
+
+    var qsPath = ViewContext.HttpContext.Request.QueryString.Value;
+    var genre = qsPath.Split("&")[0].Split("=")[1];
+    Console.WriteLine(genre);
+
+
+
+
+
+    //PageResultSet<MovieCardModel> page = new PageResultSet<MovieCardModel>();
+
+    //int pageNumber = Convert(qsPath.Split("&")[1].Split("=")[1], Int32);
+
+    //if (@Model.Data != null)
+    //{
+    //    page = @Model;
+
+    //}
+}
+
+@{
+    ViewData["Title"] = "Movie by Genre";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">
+        Welcome To Movie Shop!
+    </h1>
+
+
+    <div class="rounded">
+
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var movieCard in Model.Data)
+                {
+                    <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
+
+                        <partial name="_MovieCardPartial" model="movieCard" />
+                    </div>
+
+                }
+            </div>
+
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link  @(Model.HasPrevPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-1)">
+                            <span aria-hidden="true">Prev</span>
+                        </a>
+                    </li>
+                    @if (Model.PageIndex >= 3) 
+                    {
+                        <li class="page-item "><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-2)">@(Model.PageIndex-2)</a></li>
+                    }
+                    @if (Model.PageIndex >= 2)
+                    {
+                        <li class="page-item "><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-1)"> @(Model.PageIndex-1)</a></li>
+                    }
+                    <li class="page-item"><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@Model.PageIndex">@Model.PageIndex</a></li>
+                    @if (Model.PageIndex < Model.Count -2)
+                    {
+                        <li class="page-item "><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+1)">@(Model.PageIndex+1)</a></li>
+                    }
+
+                    @if (Model.PageIndex < Model.Count -3)
+                    {
+                        <li class="page-item )"><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+2)">@(Model.PageIndex+2)</a></li>
+                    
+                    }<li class="page-item">
+                        <a class="page-link  @(Model.HasNextPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+1)" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+        </div>
+    </div>
+
+</div>

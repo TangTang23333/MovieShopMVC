@@ -51,16 +51,14 @@ namespace MovieShopMVC.Controllers
 
         // get movies by genre 
 
-        public ActionResult MoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1)
+        public async Task<ActionResult> Genre(string genre, int pageNumber = 1, int pageSize = 30)
         {
 
-            var movies = _movieService.GetMoviesByGenre(genre);
+            var movieOfOnePage = await _movieService.GetMoviesByGenre(genre, pageNumber, pageSize);
+            // type: PageResultSet: 
 
 
-
-
-
-            return View("../Home/Index", movies);
+            return View(movieOfOnePage);
         }
 
         // GET: MovieController/Create

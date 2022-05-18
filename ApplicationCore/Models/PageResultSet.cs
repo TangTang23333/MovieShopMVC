@@ -1,10 +1,10 @@
 ﻿namespace ApplicationCore.Models
 {
-    public class PageResult<TEntity> where TEntity : class
+    public class PageResultSet<TEntity> where TEntity : class
     {
 
 
-        public PageResult(List<TEntity> data, int pageIndex, int pageSize, long count)
+        public PageResultSet(List<TEntity> data, int pageIndex, int pageSize, long count)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;

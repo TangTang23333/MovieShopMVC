@@ -14,10 +14,10 @@ namespace MovieShopMVC.Controllers
 
 
         // GET: CastController/Detail/5
-        public ActionResult Detail(int id)
+        public async Task<ActionResult> Detail(int id)
         {
 
-            var cast = this._castService.GetById(id);
+            var cast = await this._castService.GetById(id);
             return View(cast);
         }
 
@@ -30,17 +30,7 @@ namespace MovieShopMVC.Controllers
         // POST: CastController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
 
         // GET: CastController/Edit/5
         public ActionResult Edit(int id)
