@@ -2,13 +2,14 @@
 @model ApplicationCore.Models.UserLoginModel;
 
 
-@section Styles {
-    <link href="~/css/Login.css" rel="stylesheet" type="text/css" />
+@*@section Styles {
+   <link rel="stylesheet" href="~/css/Login.css"   type="text/css" />
     
-}
+}*@
 
 @{
-    ViewData["Title"] = "Login Page";
+     Layout = "_Layout";
+    ViewData["Title"] = "Login";
     
 }
 
@@ -19,7 +20,7 @@
     <div class="loginform">
 
 
-        <form class="wrapper" method="post">
+        <form class="wrapper" asp-controller="Account" asp-action="Login" method="post">
             
             <h1 class="h3 mb-3 fw-normal">Login</h1>
 

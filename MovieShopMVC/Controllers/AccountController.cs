@@ -1,24 +1,24 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Contracts.Services;
+using ApplicationCore.Exceptions;
 using ApplicationCore.Models;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MovieShopMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IAccountService _accountService;
+        private readonly IUserService _userService;
 
-        private readonly DbContext _context;
-        public AccountController(MovieShopDbContext context)
+        public AccountController(IAccountService accountService, IUserService userService)
         {
-            _context = context;
-
+            this._accountService = accountService;
+            this._userService = userService;
         }
 
 
         // login register
-        [HttpGet("login")]
+        [HttpGet]
         public IActionResult Login()
         {
 
@@ -27,15 +27,18 @@ namespace MovieShopMVC.Controllers
 
 
 
-        [HttpGet("register")]
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+
+
+        // to post infomation
         [HttpPost]
 
-        public IActionResult Register(UserRegisterRequestModel user)
+        public async Task<IActionResult> Register(UserRegisterRequestModel user)
         {
 
 
@@ -44,23 +47,28 @@ namespace MovieShopMVC.Controllers
                 return BadRequest("Password does not match!!!");
             }
 
-            // check if email is already registered in db!!!!
 
-
-            var User = new User
+            try
             {
-                FirstName = user.Firstname,
-                LastName = user.Lastname,
-                HashedPassword = user.Password,
-                Email = user.Email,
-                DateOfBirth = Convert.ToDateTime(user.DateOfBirth),
+                var registerSuccess = await _accountService.RegisterUser(user);
+                if (registerSuccess)
+                {
 
-            };
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    return BadRequest("Some problem occured, please try again later.");
+                }
+            }
+            catch (ConflictException)
+            {
+                throw;
 
-            this._context.Set<User>().Add(User);
-            this._context.SaveChanges();
+                //loggin exceptions
+            }
 
-            return RedirectToAction("Index", "Home");
+
 
 
         }
@@ -68,51 +76,39 @@ namespace MovieShopMVC.Controllers
 
 
         // login post 
-        [HttpPost("login")]
+        [HttpPost]
 
-        public IActionResult Login(UserLoginModel user)
+        public async Task<IActionResult> Login(UserLoginModel user)
         {
 
-            var userFound = this._context.Set<User>().SingleOrDefault(x => x.Email == user.Email);
-
-            if (userFound == null) return Unauthorized("Invalid username!");
 
 
-            // salt hash for security, not here for testing purpose 
-            // using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            // var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(logindto.Password));
-
-            //for (int i = 0; i < computedHash.Length; i++)
-            //{
-
-            //    if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password!");
-            //}
-
-
-            if (userFound.HashedPassword != user.Password)
+            try
             {
-                return Unauthorized("Incorrect Password, please try again!");
+                var loginResponse = await _accountService.LoginUser(user);
+
+
+                if (loginResponse.Id == 0)
+                {
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+                return View();
             }
 
-            // tried to pass userInfo to index and upate the navbar but failed
-            //UserLoggedIn userInfo = new UserLoggedIn
-            //{
-            //    FirstName = userFound.FirstName,
-            //    LastName = userFound.LastName,
-            //    DateOfBirth = userFound.DateOfBirth,
-            //    Email = userFound.Email,
-            //    Id = userFound.Id
-
-
-            //};
-
-
-            //Console.WriteLine(userInfo);
-            //TempData.Keep();
-            //TempData["user"] = userInfo;
 
             return RedirectToAction("Index", "Home");
+
+
+
+
+
+
+
+
+
 
         }
 

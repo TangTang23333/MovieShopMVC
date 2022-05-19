@@ -1,19 +1,20 @@
 ﻿
 @model ApplicationCore.Models.UserRegisterRequestModel;
 
-@section Styles {
-    <link href="~/css/Register.css" rel="stylesheet" type="text/css" />
+@*@section Styles {
+   <link rel="stylesheet" href="~/css/Register.css" type="text/css" />
     
-}
+}*@
 
 @{
+     Layout = "_Layout";
     ViewData["Title"] = "Register Page";
     
 }
 
 
 <div class="wrapper">
-    <form id="registerform" asp-controller="Account" asp-action="Register" method="post">
+    <form id="registerform" asp-action="Register" asp-controller="Account" method="post">
 
       <h1 class="h1 mb-3 fw-normal">Register</h1>
       <h3 class="h3 mb-3 fw-normal">UserRegisterRequestModel</h3>

@@ -20,6 +20,7 @@ namespace MovieShopMVC.Controllers
 
 
         // GET: Movie/Detail/5
+        [HttpGet]
         public async Task<ActionResult> Detail(int id)
         {
 
@@ -50,7 +51,7 @@ namespace MovieShopMVC.Controllers
         }
 
         // get movies by genre 
-
+        [HttpGet]
         public async Task<ActionResult> Genre(string genre, int pageNumber = 1, int pageSize = 30)
         {
 

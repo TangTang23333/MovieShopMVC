@@ -1,24 +1,10 @@
 ﻿@model ApplicationCore.Models.PageResultSet<ApplicationCore.Models.MovieCardModel>
 
 @{
-
     var qsPath = ViewContext.HttpContext.Request.QueryString.Value;
     var genre = qsPath.Split("&")[0].Split("=")[1];
     Console.WriteLine(genre);
 
-
-
-
-
-    //PageResultSet<MovieCardModel> page = new PageResultSet<MovieCardModel>();
-
-    //int pageNumber = Convert(qsPath.Split("&")[1].Split("=")[1], Int32);
-
-    //if (@Model.Data != null)
-    //{
-    //    page = @Model;
-
-    //}
 }
 
 @{
