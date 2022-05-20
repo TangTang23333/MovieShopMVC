@@ -1,19 +1,21 @@
 ﻿using ApplicationCore.Contracts.Services;
 using ApplicationCore.Exceptions;
 using ApplicationCore.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MovieShopMVC.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        private readonly IUserService _userService;
 
-        public AccountController(IAccountService accountService, IUserService userService)
+        public AccountController(IAccountService accountService)
         {
             this._accountService = accountService;
-            this._userService = userService;
+
         }
 
 
@@ -41,6 +43,11 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Register(UserRegisterRequestModel user)
         {
 
+            // modelstate is member of controller , check the incoming data model is valid or not 
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
             if (user.ConfirmPassword != user.Password)
             {
@@ -87,11 +94,37 @@ namespace MovieShopMVC.Controllers
             {
                 var loginResponse = await _accountService.LoginUser(user);
 
-
-                if (loginResponse.Id == 0)
+                // can be self defined
+                var claims = new List<Claim>()
                 {
-                    return View();
+                    new Claim(ClaimTypes.Email, loginResponse.Email),
+                    new Claim(ClaimTypes.GivenName, loginResponse.FirstName),
+                    new Claim(ClaimTypes.Surname, loginResponse.LastName),
+                    new Claim(ClaimTypes.NameIdentifier, loginResponse.Id.ToString()),
+                    new Claim(ClaimTypes.DateOfBirth, Convert.ToDateTime(loginResponse.DateOfBirth).Date.ToString("d")),
+                    new Claim("Language", "English")
+
+
+                };
+
+                //identity
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                //create cookie with above claims
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+
+                // asp .net how long the cookie is gonna be valid
+                // name of the cookie you want to create and stored in browser
+
+
+                if (loginResponse != null)
+                {
+                    return LocalRedirect("~/");
                 }
+
+
             }
             catch (Exception)
             {
@@ -99,14 +132,7 @@ namespace MovieShopMVC.Controllers
             }
 
 
-            return RedirectToAction("Index", "Home");
-
-
-
-
-
-
-
+            return View();
 
 
 
@@ -115,7 +141,11 @@ namespace MovieShopMVC.Controllers
 
 
 
-
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return LocalRedirect("~/");
+        }
 
 
     }

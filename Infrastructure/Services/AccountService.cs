@@ -4,7 +4,6 @@ using ApplicationCore.Entities;
 using ApplicationCore.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace Infrastructure.Services
 {
@@ -18,28 +17,28 @@ namespace Infrastructure.Services
         }
 
         // go to db check if email exists 
-        public async Task<UserLoginResponseModel> LoginUser(UserLoginModel userModel)
+        public async Task<UserLoginResponseModel?> LoginUser(UserLoginModel userModel)
         {
 
             var userFound = await _userRepository.GetUserByEmail(userModel.Email);
 
-            var userInputPsw = GetHashedPassword(userModel.Password, Encoding.ASCII.GetBytes(userFound.Salt));
+            var userInputPsw = GetHashedPassword(userModel.Password, userFound.Salt);
 
-            List<MovieCardModel> favorites = new List<MovieCardModel>();
-            List<MovieCardModel> purchases = new List<MovieCardModel>();
-
-
-
-            foreach (var f in userFound.Favorites)
-            {
-                favorites.Add(new MovieCardModel { Id = f.MovieId, Title = f.Movie.Title, PosterURL = f.Movie.PosterURL });
-            }
+            //List<MovieCardModel> favorites = new List<MovieCardModel>();
+            //List<MovieCardModel> purchases = new List<MovieCardModel>();
 
 
-            foreach (var p in userFound.Purchases)
-            {
-                purchases.Add(new MovieCardModel { Id = p.MovieId, Title = p.Movie.Title, PosterURL = p.Movie.PosterURL });
-            }
+
+            //foreach (var f in userFound.Favorites)
+            //{
+            //    favorites.Add(new MovieCardModel { Id = f.MovieId, Title = f.Movie.Title, PosterURL = f.Movie.PosterURL });
+            //}
+
+
+            //foreach (var p in userFound.Purchases)
+            //{
+            //    purchases.Add(new MovieCardModel { Id = p.MovieId, Title = p.Movie.Title, PosterURL = p.Movie.PosterURL });
+            //}
 
 
             if (userInputPsw == userFound.HashedPassword)
@@ -48,58 +47,56 @@ namespace Infrastructure.Services
 
                 return new UserLoginResponseModel
                 {
-
+                    Id = userFound.Id,
                     FirstName = userFound.FirstName,
                     LastName = userFound.LastName,
-                    LastLoginDateTime = DateTime.Now,
-                    Favorites = favorites,
-                    Purchased = purchases
+                    Email = userFound.Email,
+                    DateOfBirth = userFound.DateOfBirth,
+                    //LastLoginDateTime = DateTime.Now,
+                    //Favorites = favorites,
+                    //Purchased = purchases
 
                 };
             }
-            else
-            {
 
-                userFound.AccessFailedCount += 1;
-                if (userFound.AccessFailedCount == 3)
-                {
-                    userFound.IsLocked = true;
-                }
 
-                var updateUser = await _userRepository.Update(userFound);
+            //userFound.AccessFailedCount += 1;
+            //if (userFound.AccessFailedCount == 3)
+            //{
+            //    userFound.IsLocked = true;
+            //}
 
-                return new UserLoginResponseModel
-                {
-                    Id = 0
-                };
-            }
+            //var updateUser = await _userRepository.Update(userFound);
+            return null;
+
 
         }
 
 
 
 
-        private byte[] GetRandomSalt()
+        private string GetRandomSalt()
         {
-            byte[] salt = new byte[128 / 8];
-            using (var rngCsp = new RNGCryptoServiceProvider())
+            var randomBytes = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
             {
-                rngCsp.GetNonZeroBytes(salt);
+                rng.GetBytes(randomBytes);
             }
-            return salt;
+
+            return Convert.ToBase64String(randomBytes);
         }
 
 
-        private string GetHashedPassword(string password, byte[] salt)
+        private string GetHashedPassword(string password, string salt)
         {
-            Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: password,
-            salt: salt,
-            prf: KeyDerivationPrf.HMACSHA256,
-            iterationCount: 100000,
-            numBytesRequested: 256 / 8));
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+           password,
+           Convert.FromBase64String(salt),
+           KeyDerivationPrf.HMACSHA512,
+           10000,
+           256 / 8));
 
-            return password;
+
         }
 
         public async Task<bool> RegisterUser(UserRegisterRequestModel user)
@@ -124,7 +121,7 @@ namespace Infrastructure.Services
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
                 HashedPassword = hashedPassword,
-                Salt = salt.ToString(),
+                Salt = salt,
                 Email = user.Email,
                 DateOfBirth = Convert.ToDateTime(user.DateOfBirth),
 

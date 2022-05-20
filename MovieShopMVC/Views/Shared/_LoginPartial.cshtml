@@ -1,6 +1,7 @@
-﻿@*-- user is authenticated 
-    First name LastName  ---> userController 
-    dropdown 
+﻿@using MovieShopMVC.Services
+@*-- user is authenticated
+    First name LastName  ---> userController
+    dropdown
     - account info :user/edit
     - logout  :logout redirect to login page
     - favorites   :user/favorite
@@ -8,23 +9,45 @@
 
     if not logged in
     show register / login buttons  : account/register     account/login
-    
-    
-    
-    *@
+
+    flag =>
+    inject dependency also works in razor view !!!!!
+
+*@
+
+@inject ICurrentUser _currentUser
 
 
 
-@*@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager*@
-
-<div class="text-end" style="display: flex;">
 
 
-    <a class="nav-link text-dark" asp-controller="Account" asp-action="Register"><button id="loginbutton" class="btn btn-outline-light">Register </button></a>
+
+@if (_currentUser.IsAuthenticated)
+{
+     <div class="dropdown">
+        <button class="btn btn-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            @_currentUser.Firstname @_currentUser.Lastname
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" asp-controller="user" asp-action="detail"><i class="far fa-edit" style="margin-right: 10px;"></i>Profile</a></li>
+            <li><a class="dropdown-item" asp-controller="Account" asp-action="logout"><i class="fas fa-sign-out-alt" style="margin-right: 10px;"></i>Logout</a></li>
+            <li><a class="dropdown-item" asp-controller="user" asp-action="favorites"><i class="fas fa-heart" style="margin-right: 10px;"></i>Favorites</a></li>
+            <li><a class="dropdown-item" asp-controller="user" asp-action="purchased"><i class="fas fa-shopping-bag" style="margin-right: 10px;"></i>Purchased</a></li>
+        </ul>
+    </div>
+}
 
 
-    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login"><button id="registerbutton" class="btn btn-outline-light">Login </button></a>
+else
+{
 
-</div>
+    <div class="text-end" style="display: flex;">
+
+
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register"><button id="loginbutton" class="btn btn-outline-light">Register </button></a>
+
+
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login"><button id="registerbutton" class="btn btn-outline-light">Login </button></a>
+
+    </div>
+}

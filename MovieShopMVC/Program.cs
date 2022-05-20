@@ -3,7 +3,9 @@ using ApplicationCore.Contracts.Services;
 using Infrastructure.Data;
 using Infrastructure.Repository;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using MovieShopMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,16 +16,23 @@ builder.Services.AddControllersWithViews();
 
 // services registrations!!!
 // service injections , built in dependency injection, first class citizen, 
+builder.Services.AddScoped<ICastRepository, CastRepository>();
+builder.Services.AddScoped<ICastService, CastService>();
+
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 // if we want test , just inject with movietestservice. 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
-builder.Services.AddScoped<ICastRepository, CastRepository>();
-builder.Services.AddScoped<ICastService, CastService>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+
+
+//inject HttpContext inside our CurrentUser class
+builder.Services.AddHttpContextAccessor();
+
 
 
 
@@ -41,10 +50,14 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
 
 
 
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-// false send confirmation email not working yet
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-//    .AddEntityFrameworkStores<MovieShopDbContext>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+    options =>
+    {
+        options.Cookie.Name = "MovieShopAuthCookie";
+        options.ExpireTimeSpan = TimeSpan.FromHours(2); // expired in two hours
+        options.LoginPath = "/account/login"; // redirect to login page if cookie expired 
+    });
 
 var app = builder.Build();
 
@@ -57,18 +70,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-//else
-//{
 
-//    app.UseMigrationsEndPoint();
-//}
+// middleware!!!
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 
 
