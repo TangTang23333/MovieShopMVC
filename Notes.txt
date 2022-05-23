@@ -1,0 +1,35 @@
+Dev OPS
+
+Developer + Operations
+
+Deploy the application => ASP.NET Core
+
+Company A 
+Team MovieShop
+
+Environments
+
+Dev -> Devlopers have access/test
+QA -> Testers will test
+Staging => UAT ()
+Production/Live -> Actaul Users
+
+
+Windows Machine/server => IIS 
+Linux Server -> Ngix
+
+Data Centers => Operations team that will manage those servers
+
+Cloud Providers
+Azure => 
+CPU
+IaaS -> Infrasture as a Service, VM => Windows Server with 128G RAM    20 core  5 THD
+IIS => MovieShop App
+
+PaaS Platform as a Service
+Azure App Service => Deply the App
+Azure SQL
+Azure Blob Storage=> Files, images, videos
+Azure CI/CD
+Azure Functions
+Azure Cognitive Services
