@@ -26,6 +26,8 @@ namespace Infrastructure.Repository
 
         public async Task<User> Add(User entity)
         {
+
+
             await this._context.Set<User>().AddAsync(entity);
             await this._context.SaveChangesAsync();
 

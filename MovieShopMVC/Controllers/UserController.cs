@@ -49,7 +49,38 @@ namespace MovieShopMVC.Controllers
 
             return View(purchased);
 
+
         }
+
+
+        [HttpGet]
+        //[Authorize] // filter they like middleware, piece of code run before action , if not authorized, go to page defined in claims 
+        public async Task<ActionResult> Favorites()
+        {
+
+            var userId = this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var favorites = await _userService.GetFavoritesByUserId(Convert.ToInt32(userId));
+
+            return View(favorites);
+
+        }
+
+
+        [HttpGet]
+        //[Authorize] // filter they like middleware, piece of code run before action , if not authorized, go to page defined in claims 
+        public async Task<ActionResult> Cart()
+        {
+
+            var userId = this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var cart = await _userService.GetCartByUserId(Convert.ToInt32(userId));
+
+            return View(cart);
+
+        }
+
+
+
+
 
 
         //[HttpGet]

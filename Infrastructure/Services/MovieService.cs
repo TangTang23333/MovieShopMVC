@@ -7,16 +7,18 @@ namespace Infrastructure.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IReviewRepository _reviewRepository;
+
         List<GenreModel> genres = new List<GenreModel>();
         List<CastModel> casts = new List<CastModel>();
         List<TrailerModel> trailers = new List<TrailerModel>();
+        List<ReviewRequestModel> movieReviews = new List<ReviewRequestModel>();
 
-        public MovieService(IMovieRepository movieRepository)
+
+        public MovieService(IMovieRepository movieRepository, IReviewRepository reviewRepository)
         {
             _movieRepository = movieRepository;
-
-
-
+            _reviewRepository = reviewRepository;
 
         }
 
@@ -82,66 +84,76 @@ namespace Infrastructure.Services
 
 
 
-        public async Task<MovieDetailsModel> GetMovieDetailsById(int Id)
-        {
+        //public async Task<MovieDetailByUserModel> GetMovieDetailsById(int userId, int id)
+        //{
 
 
 
-            var movie = await _movieRepository.GetById(Id);
+        //    var movie = await _movieRepository.GetById(id);
 
-            var reviews = await _movieRepository.GetReviews(Id);
-            decimal rating = 0;
+        //    var reviews = await this._reviewRepository.GetMovieReviews(id);
+        //    var userReivew = await this._reviewRepository.GetMovieReview(userId, id);
 
-            if (reviews is null)
-            {
-                rating = Math.Round(reviews.Average(e => e.Rating), 1);
-            }
+        //    decimal rating = 0;
 
-
-
-
-            foreach (var cast in movie.Casts)
-            {
-                casts.Add(new CastModel { Character = cast.Character, Id = cast.CastId, ProfilePath = cast.Cast.ProfilePath, Name = cast.Cast.Name });
-            }
-
-            foreach (var genre in movie.Genres)
-            {
-                genres.Add(new GenreModel { Id = genre.Genre.Id, Name = genre.Genre.Name });
-            }
-
-            foreach (var trailer in movie.Trailers)
-            {
-                trailers.Add(new TrailerModel { Id = trailer.Id, Name = trailer.Name, TrailerURL = trailer.TrailerURL });
-            }
+        //    if (reviews is null)
+        //    {
+        //        rating = Math.Round(reviews.Average(e => e.Rating), 1);
+        //    }
 
 
+        //    foreach (var cast in movie.Casts)
+        //    {
+        //        casts.Add(new CastModel { Character = cast.Character, Id = cast.CastId, ProfilePath = cast.Cast.ProfilePath, Name = cast.Cast.Name });
+        //    }
+
+        //    foreach (var genre in movie.Genres)
+        //    {
+        //        genres.Add(new GenreModel { Id = genre.Genre.Id, Name = genre.Genre.Name });
+        //    }
+
+        //    foreach (var trailer in movie.Trailers)
+        //    {
+        //        trailers.Add(new TrailerModel { Id = trailer.Id, Name = trailer.Name, TrailerURL = trailer.TrailerURL });
+        //    }
+
+        //    foreach (var rev in reviews)
+        //    {
+        //        movieReviews.Add(new ReviewRequestModel { MovieId = rev.MovieId, UserId = rev.UserId, Rating = rev.Rating, ReviewText = rev.ReviewText });
+        //    }
 
 
-            var movieDetail = new MovieDetailsModel
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                PosterURL = movie.PosterURL,
-                Overview = movie.Overview,
-                Price = movie.Price,
-                AvgRating = rating,
-                Runtime = movie.RunTime,
-                Revenue = movie.Revenue,
-                Budget = movie.Budget,
-                ReleaseDate = movie.ReleaseDate,
-                Genres = genres,
-                Casts = casts,
-                Trailers = trailers,
-                TagLine = movie.Tagline
+        //    var movieDetail = new MovieDetailByUserModel
+        //    {
+        //        Id = movie.Id,
+        //        Title = movie.Title,
+        //        PosterURL = movie.PosterURL,
+        //        Overview = movie.Overview,
+        //        Price = movie.Price,
+        //        AvgRating = rating,
+        //        Runtime = movie.RunTime,
+        //        Revenue = movie.Revenue,
+        //        Budget = movie.Budget,
+        //        ReleaseDate = movie.ReleaseDate,
+        //        Genres = genres,
+        //        Casts = casts,
+        //        Trailers = trailers,
+        //        TagLine = movie.Tagline,
+        //        Reviews = movieReviews,
+        //        // user part could be null
+        //        UserId = userId,
+        //        IsFavorite = await _userService.IsMovieFavorite(userId, id),
+        //        IsPurchased = await _userService.IsMoviePurchased(userId, id),
+        //        Review = new ReviewRequestModel { MovieId = movie.Id, UserId = userId, Rating = userReivew.Rating, ReviewText = userReivew.ReviewText }
 
 
-            };
-            return movieDetail;
+
+        //    };
+        //    return movieDetail;
 
 
 
-        }
+        //}
 
         public async Task<List<GenreModel>> GetGenreList()
         {
@@ -158,6 +170,9 @@ namespace Infrastructure.Services
             return genres;
         }
 
-
+        Task<MovieDetailsModel> IMovieService.GetMovieDetailsById(int Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jBSzd7MVXnER5TqmlP1v08B6+fXKg1bNIAOODPM4Pgk=",
+  "Hash": "PuqwktZI4Hc1CiagNCEW+7U8/i6t6Qr5xcfA5e4YGQQ=",
   "Source": "MovieShopMVC",
   "BasePath": "_content/MovieShopMVC",
   "Mode": "Default",
@@ -1069,40 +1069,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\MovieShopMVC\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\MovieShopMVC.bundle.scp.css"
-    },
-    {
-      "Identity": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\MovieShopMVC\\wwwroot\\css\\Login.css",
-      "SourceId": "MovieShopMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\MovieShopMVC\\wwwroot\\",
-      "BasePath": "_content/MovieShopMVC",
-      "RelativePath": "css/Login.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\Login.css"
-    },
-    {
-      "Identity": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\MovieShopMVC\\wwwroot\\css\\Register.css",
-      "SourceId": "MovieShopMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\MovieShopMVC\\wwwroot\\",
-      "BasePath": "_content/MovieShopMVC",
-      "RelativePath": "css/Register.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\Register.css"
     },
     {
       "Identity": "C:\\Users\\15109\\Documents\\Antra-training\\MovieShop\\MovieShopMVC\\wwwroot\\css\\site.css",

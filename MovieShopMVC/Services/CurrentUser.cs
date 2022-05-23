@@ -25,6 +25,8 @@ namespace MovieShopMVC.Services
 
         public string Lastname => _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Surname).Value;
 
+        //??public int cartItemsNumber => _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.).Value;
+
         public List<string> Roles => throw new NotImplementedException();
 
     }

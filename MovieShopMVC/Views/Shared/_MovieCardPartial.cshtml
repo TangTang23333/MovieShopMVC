@@ -1,8 +1,33 @@
 ﻿@model ApplicationCore.Models.MovieCardModel
 
-<div class="card mb-4 ml-5">
-    <a asp-controller="Movie" asp-action="Detail" asp-route-id="@Model.Id">
-        <img class="img-fluid" src="@Model.PosterURL" alt="@Model.Title">
-    </a>
+
+
+
+<link href="MovieShopMvc.styles.css" rel="stylesheet">
+
+
+<div class="container ml-3 mt-3 p-0">
+
+
+    <img class="img-fluid" src="@Model.PosterURL" alt="@Model.Title">
+
+
+    <div class="info">
+        <a asp-controller="Favorite" asp-action="AddFavorite" asp-route-id="@Model.Id">
+            <i class="fas fa-heart icon"></i>
+        </a>
+
+
+        <a asp-controller="Movie" asp-action="Detail" asp-route-id="@Model.Id">
+            <i class="fas fa-search icon"></i>
+        </a>
+
+
+        <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id">
+            @*<i class="far fa-credit-card icon"></i>*@
+            <i class="fas fa-shopping-cart icon"></i>
+        </a>
+    </div>
+
 </div>
 

@@ -24,7 +24,7 @@
                     <img style="width:185px; height: 250px;" src="@Model.PosterURL" alt="@Model.Title" />
 
 
-                    <div class="container ml-20" style="font-size:smaller">
+                    <div class="container ml-20" style="font-size:smaller; font-weight: bold;">
                         <div class="container d-flex " style="padding: 5px 0px;">
                             <p class="m-1" style="width: 220px;"><i class="far fa-calendar-alt" style="width: 50px;"></i> Purchased Date</p>
                             <p class="m-1"style="padding: 2px 5px;background-color: black; border-radius:10px; color: white;">@Convert.ToDateTime(Model.PurchaseDate).Date.ToString("d")</p>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary">Watch Now</button>
                 </div>
             </div>
         </div>

@@ -102,6 +102,7 @@ namespace MovieShopMVC.Controllers
                     new Claim(ClaimTypes.Surname, loginResponse.LastName),
                     new Claim(ClaimTypes.NameIdentifier, loginResponse.Id.ToString()),
                     new Claim(ClaimTypes.DateOfBirth, Convert.ToDateTime(loginResponse.DateOfBirth).Date.ToString("d")),
+
                     new Claim("Language", "English")
 
 

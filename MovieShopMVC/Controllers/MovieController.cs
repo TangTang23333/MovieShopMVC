@@ -1,6 +1,6 @@
 ﻿using ApplicationCore.Contracts.Services;
-using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MovieShopMVC.Controllers
 {
@@ -10,10 +10,12 @@ namespace MovieShopMVC.Controllers
 
 
         private readonly IMovieService _movieService;
+        private readonly IUserService _userService;
 
-        public MovieController(IMovieService movieService)
+        public MovieController(IMovieService movieService, IUserService userService)
         {
             _movieService = movieService;
+            this._userService = userService;
         }
 
 
@@ -41,11 +43,25 @@ namespace MovieShopMVC.Controllers
             // CPU operation      => calculations, 
             // I/O bound operation  => DB calls, files, images, videos, 
 
+            int userID = 0;
+            var userId = this.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId != null)
+            {
+                userID = Convert.ToInt32(userId);
+            }
 
 
 
-            MovieDetailsModel movieDetail = await _movieService.GetMovieDetailsById(id);
-            return View(movieDetail);
+
+
+
+            var MovieUser = await this._userService.GetMovieDetailByIdByUser(userID, id);
+
+
+
+
+            return View(MovieUser);
 
 
         }

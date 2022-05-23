@@ -1,4 +1,7 @@
-﻿@model ApplicationCore.Models.MovieDetailsModel
+﻿@using MovieShopMVC.Services
+@model MovieDetailByUserModel
+@inject ICurrentUser _currentUser
+
 
 
 
@@ -13,7 +16,22 @@
 
         <div class="col-5" id="movie-info" style="padding-top: 10px;">
 
-            <h1>@Model.Title</h1>
+            <div style="display: flex; align-items: center; justify-content: space-between; text-decoration: none;">
+                <h1>@Model.Title</h1>
+                @if (Model.IsFavorite == true)
+                {
+                    <a asp-controller="Favorite" asp-action="RemoveFavorite" asp-route-id="@Model.Id" >
+                        <i class="fas fa-heart heart" style=" color: red; margin-left: 20px; width: 35px; height: 35px;" alt="Favorited"></i>
+                    </a>
+                }
+                else
+                {
+                       <a asp-controller="Favorite" asp-action="AddFavorite" asp-route-id="@Model.Id">
+                        <i class="far fa-heart" style=" color: white;  margin-left: 20px; width: 35px; height: 35px;" alt="Click to like it"></i>
+                       </a>
+                }
+
+            </div>
             <p style="color: gray;">@Model.TagLine</p>
 
             <div class='brief' style="display: flex; justify-content: space-between; color: gray; ">
@@ -49,13 +67,15 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="rating-area" style="margin-bottom: 40px;">
-                                <label for="rating">Please rate this movie:</label>
+                            <form class="rating-area" style="margin-bottom: 40px;" 
+                            method="post" id="ratingform" asp-controller="Review" asp-action="AddReview" asp-route-id="@Model.Id">
 
 
 
+                                <p style="margin-bottom:20px;">Please Rate this movie from 1 to 10!</p>
                                 <!-- rating dropdown-->
-                                <select name="rating" id="rating">
+                                <select  style="margin-bottom:20px; width: 80px;" class="form-select form-select-md" name="Rating" id="rating" >
+                                    <option value="" selected>@(Model.Review != null ? Model.Review.Rating : "")</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -67,30 +87,39 @@
                                     <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
-                            </div>
-                            <textarea rows="4" cols="50" style="" name="review-txt">  </textarea>
+                           
+                                <textarea rows="4" cols="50" name="reviewText"> @(Model.Review != null ?  Model.Review.ReviewText : "")   </textarea>
 
-
+                             </form>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer" style="text-decoration:none;">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Submit</button>
+                            
+                                <button type="button" form="ratingform" class="btn btn-primary">Submit</button>
+                           
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button type="button" data-bs-toggle="modal" data-bs-target="#PurchaseModal" style="display: flex;padding: 5px;  border-radius: 5px; width: 200px; height:50px; font-weight: bold; justify-content:center; align-items:center;  " class="btn-primary-dark">
-                @if (Model.Price != null)
-                {
-                    <p style="margin-bottom: 0px; justify-content:center; align-items:center;">Buy $@Model.Price</p>
-                }
-                else
-                {
-                    <p style="margin-bottom: 0px; justify-content:center; align-items:center;">Buy $9.9</p>
-                }
+
+            <!-- !!!!!!if user has purchased this movie, then display watch now button -->
+            @if (Model.IsPurchased == true)
+            {
+                <button type="button" data-bs-toggle="modal" data-bs-target="#PurchaseModal" style="display: flex;padding: 5px;  border-radius: 5px; width: 200px; height:50px; font-weight: bold; justify-content:center; align-items:center;  " class="btn-primary-dark">
+                
+               
+                
+                
+                    <p style="margin-bottom: 0px; justify-content:center; align-items:center;">Watch Now</p>
+               
 
             </button>
+            } else {
+            <button type="button" data-bs-toggle="modal" data-bs-target="#PurchaseModal" style="display: flex;padding: 5px;  border-radius: 5px; width: 200px; height:50px; font-weight: bold; justify-content:center; align-items:center;  " class="btn-primary-dark">
+                Buy Now $@(Model.Price != null ? Model.Price : 9.9)
+
+            </button>}
             <!-- PurchaseModal -->
 
             <div class="modal fade" id="PurchaseModal" tabindex="-1" aria-labelledby="PurchaseModalLabel" aria-hidden="true" style="color: black;">
@@ -100,23 +129,23 @@
                             <h5 class="modal-title" id="exampleModalLabel">Purchase</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="display: flex;">
-                            <p>
-                                Purchase movie @Model.Title  at  $@if (Model.Price != null)
-                                {
-                                <p style="margin-bottom: 0px; justify-content:center; align-items:center;">@Model.Price</p>
-                                    ;
-                                }
-                                else
-                                {
-                                <p style="margin-bottom: 0px; justify-content:center; align-items:center;">9.9</p>
-                                    ;
-                                }
-                            </p>
+                        <div class="modal-body" style="display: flex; ">
+                            <img src="@Model.PosterURL" style="height: 160px; width:120px; border-radius: 15px;"/>
+
+                            <div style="margin-left: 100px; display: flex; flex-direction: column; justify-content: center; align-items:center;">
+                                <p style="font-size:20px;">@Model.Title</p>
+                                <p style="font-size:20px;" >$ @(Model.Price != null ? Model.Price : 9.9)</p>
+                               
+                                    
+                               
+                            
+                            </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer" style="text-decoration: none;">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Purchase</button>
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id">
+                            <button type="button" class="btn btn-primary">Add To Cart</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -168,7 +197,7 @@
 
                 <li class="list-group-item" style="background-color: #edede9;">
                     <div class='factrow' style="display: flex; align-items:center;">
-                        <i style="width: 50px;" class="far fa-coin"></i>
+                        <i class="bi bi-coin" style="width: 50px; justify-content:center; display:flex;"></i>
                         <p style="margin-bottom: 0px;width: 150px; ">Budget </p>
                         <p style="  margin-bottom: 0px;padding: 0px 8px; background-color:black; color: white; border-radius: 10px; font-weight: bold;">$@Model.Budget</p>
                     </div>
@@ -179,7 +208,7 @@
 
             <div class="Trailer" style="margin-top: 30px; ">
                 <h3 style="margin-bottom: 60px; ">TRAILERS</h3>
-                <ul class="list-group list-group-flush" >
+                <ul class="list-group list-group-flush">
                     @foreach (var trailer in @Model.Trailers)
                     {
                         <li class="list-group-item" style="background-color: #edede9;">
@@ -204,10 +233,10 @@
 
         <h2 style="margin-bottom: 50px; margin-top: 50px;">CAST</h2>
         <hr style="border: 1px solid lightgray;" />
-        <ul class="list-group list-group-flush" >
+        <ul class="list-group list-group-flush">
             @foreach (var cast in @Model.Casts)
             {
-                <li class="list-group-item" >
+                <li class="list-group-item">
                     <div class='actor' style="display:flex;  align-items: center;">
                         <a asp-controller="Cast" asp-action="Detail" asp-route-id="@cast.Id">
                             <img src="@cast.ProfilePath" style=" width: 60px; height:60px; border-radius:30px; margin-right: 80px;" onclick="" />

@@ -1,0 +1,96 @@
+﻿@model List<ApplicationCore.Models.CartDetailModel>
+
+@{
+
+    var total = Model.Sum(a => a.Price);
+    var details = new List<CartDetailModel>();
+    foreach(var item in Model)
+    {
+        details.Add(new CartDetailModel { UserId = item.UserId, MovieId = item.MovieId, Price = item.Price });
+    }
+}
+
+
+<div class="container">
+    <h3 style="justify-content:center; margin-bottom: 50px; ">My Cart</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+               
+                <th>Movie</th>
+                <th>Titile</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model) 
+            {
+
+
+                <partial name="_CartItemPartial" model="item" />
+
+            }
+
+
+            <tr>
+
+                <td></td>
+                 <td>Total</td>
+                  <td>$@total</td>
+                   <td><div id="paypal-btn"></div></td>
+                   
+               
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+@section Scripts{
+
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <script>
+        let _total = @Html.Raw(@total);
+        paypal.Button.render({
+            //Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AecRqAEGz6nCwFPZQNYNVZAvgLmV5VPFxgPtoHJSWdRiOVTd7wt6cBMeOWqdW4gQpRjlc9vM6v8e8-Yt'
+            },
+            //Customize button
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill'
+            },
+            commit: true,
+            //Set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+            //Execute the payment
+            onAuthorize: function (data, actions) {
+                // data of reponse 
+                
+                return actions.payment.execute().then(function () {
+                   
+                    //actions.redirect(windows, "https://localhost:7169/Purchase/CreatePurchase");
+                    var url = '@Url.Action("CreatePurchase", "Purchase")';
+                    window.location.href = url;
+                });
+            }
+        }, '#paypal-btn')
+    </script>
+}

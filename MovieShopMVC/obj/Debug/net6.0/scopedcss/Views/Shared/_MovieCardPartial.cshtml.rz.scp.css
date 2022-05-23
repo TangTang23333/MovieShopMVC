@@ -1,0 +1,54 @@
+
+
+
+
+.info[b-2tu7wzkgn4] {
+    opacity:0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+
+img[b-2tu7wzkgn4] {
+    z-index: 2;
+    }
+
+.container[b-2tu7wzkgn4] {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.container:hover  .info[b-2tu7wzkgn4] {
+    opacity:1;
+}
+
+
+.icon[b-2tu7wzkgn4] {
+color:black;
+width: 40px;
+height: 40px;
+padding: 5px;
+border-radius: 50%;
+background-color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 10px;
+transition: all 0.5s ease;
+cursor: pointer;
+}
+
+.icon:hover[b-2tu7wzkgn4] {
+   
+    background-color: #e9f5f5;
+    transform: scale(1.1);
+}

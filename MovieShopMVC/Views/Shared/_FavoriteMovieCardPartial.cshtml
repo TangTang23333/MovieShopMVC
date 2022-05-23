@@ -1,0 +1,58 @@
+﻿@model ApplicationCore.Models.FavoriteDetailModel
+<link href="MovieShopMvc.styles.css" rel="stylesheet">
+<div class="card mb-4 ml-5 d-flex">
+    <div class="container">
+        <a asp-controller="Movie" asp-action="Detail" asp-route-id="@Model.MovieId">
+            <img class="img-fluid" src="@Model.PosterURL" alt="@Model.Title">
+        </a>
+
+        <div class="info">
+            <a asp-controller="Favorite" asp-action="RemoveFavorite" asp-route-id="@Model.Id" style="text-decoration: none;">
+                <i class="bi bi-x-circle icon" style="font-size: 40px;"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#PurchaseModal-@Model.MovieId">
+        Add To Cart
+    </button>
+
+
+    <!-- might add button to remove from favorties and purchase modal-->
+    <!-- PurchaseModal -->
+
+   
+            <div class="modal fade" id="PurchaseModal-@Model.MovieId" tabindex="-1" aria-labelledby="PurchaseModalLabel" aria-hidden="true" style="color: black;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Purchase</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="display: flex; ">
+                            <img src="@Model.PosterURL" style="height: 160px; width:120px; border-radius: 15px;"/>
+
+                            <div style="margin-left: 100px; display: flex; flex-direction: column; justify-content: center; align-items:center;">
+                                <p style="font-size:20px;">@Model.Title</p>
+                                <p style="font-size:20px;" >$ @(Model.Price != null ? Model.Price : 9.9)</p>
+                               
+                                    
+                               
+                            
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-decoration: none;">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.MovieId">
+                            <button type="button" class="btn btn-primary">Purchase</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+</div>
+

@@ -1,0 +1,41 @@
+﻿@model ApplicationCore.Models.CartDetailModel
+
+
+
+<tr style="width:68%; height:165px; vertical-align: middle;">
+    
+    <td>
+        <a asp-controller="Movie" asp-action="Detail" asp-route-id="@Model.MovieId" style="text-decoration:none;">
+            <div style="align-items:center;">
+                <img class="img" src="@Model.PosterURL" alt="@Model.Title" style="height: 130px; width: 100px;">
+
+            </div>
+        </a>
+    </td>
+    <td style="align-items:center;"><p style="color:black; margin-bottom: 0px;">@(Model.Title)</p></td>
+    <td style="align-items:center;"><p >$@(Model.Price == null ? 9.9 : Model.Price)</p></td>
+    <td style="justify-content:center; ">
+        @*<button type="button" class="btn btn-dark" style="padding: 5px;  height:30px; font-size:12px">
+            Checkout
+        </button>*@
+
+        <a asp-controller="Cart" asp-action="Remove" asp-route-movieid="@Model.MovieId" asp-route-userid="@Model.UserId">
+        <button type="button" class="btn btn-dark" style="padding: 5px;  height:30px; font-size: 12px;">
+            Remove
+        </button>
+        </a>
+    </td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+

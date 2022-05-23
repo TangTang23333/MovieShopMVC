@@ -1,0 +1,20 @@
+﻿@model int;
+
+@if (Model > 0)
+{
+    <li class="nav-item">
+        <a asp-controller="User" asp-action="Cart" aria-label="View your shopping cart" style="text-decoration:none;">
+            <i style="color: white;" class="fas fa fa-shopping-cart fa-lg"></i>
+            <span style="height: 30px; width:30px; vertical-align: top; border-radius: 50%; background-color: lightgray; position: relative; left:-13px; top:-10px; color: black; padding: 1px 5px; font-weight: bolder;">
+                @Model
+            </span>
+        </a>
+    </li>
+}
+
+
+
+
+
+
+

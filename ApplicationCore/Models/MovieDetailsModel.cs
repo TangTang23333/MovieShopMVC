@@ -27,6 +27,8 @@
 
         public List<CastModel>? Casts { get; set; }
 
+        public List<ReviewRequestModel>? Reviews { get; set; }
+
 
     }
 }
