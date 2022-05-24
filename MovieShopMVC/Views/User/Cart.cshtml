@@ -2,12 +2,12 @@
 
 @{
 
-    var total = Model.Sum(a => a.Price);
-    var details = new List<CartDetailModel>();
-    foreach(var item in Model)
-    {
-        details.Add(new CartDetailModel { UserId = item.UserId, MovieId = item.MovieId, Price = item.Price });
-    }
+    //var total = Model.Sum(a => a.Price);
+    //var details = new List<CartDetailModel>();
+    //foreach(var item in Model)
+    //{
+    //    details.Add(new CartDetailModel { UserId = item.UserId, MovieId = item.MovieId, Price = item.Price });
+    //}
 }
 
 
@@ -54,7 +54,7 @@
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script>
-        let _total = @Html.Raw(@total);
+        let _total = @Html.Raw(@Model.Sum(a => a.Price));
         paypal.Button.render({
             //Configure environment
             env: 'sandbox',
