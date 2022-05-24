@@ -6,7 +6,7 @@ namespace ApplicationCore.Contracts.Services
 
 
     {
-
+        public Task<UserProfileModel> GetUserProfile(int id);
         public Task<List<PurchaseDetailModel>> GetPurchasesByUserId(int userId);
         public Task<List<FavoriteDetailModel>> GetFavoritesByUserId(int userId);
 

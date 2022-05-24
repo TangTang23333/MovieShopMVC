@@ -1,3 +1,7 @@
+/* _content/MovieShopMVC/Views/Account/Register.cshtml.rz.scp.css */
+.form-floating[b-gr7r9rn3r6] {
+    margin-top: 10px;
+}
 /* _content/MovieShopMVC/Views/Shared/_FavoriteMovieCardPartial.cshtml.rz.scp.css */
 .info[b-h51r0yyopq] {
     opacity: 0;
@@ -149,4 +153,15 @@ cursor: pointer;
    
     background-color: #e9f5f5;
     transform: scale(1.1);
+}
+/* _content/MovieShopMVC/Views/User/Profile.cshtml.rz.scp.css */
+.content[b-gqp3l63f69] {
+    display: flex;
+    margin-top: 10px;
+}
+
+.container[b-gqp3l63f69] {
+    display: flex;
+    justify-content:center;
+    align-items: center;
 }

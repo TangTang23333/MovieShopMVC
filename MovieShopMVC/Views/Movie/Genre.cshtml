@@ -13,9 +13,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">
-        Welcome To Movie Shop!
-    </h1>
+
 
 
     <div class="rounded">
@@ -36,12 +34,12 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link  @(Model.HasNextPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-10)" aria-label="Prev10">
+                        <a class="page-link  "@(Model.HasPrevPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-10)" aria-label="Prev10">
                             <span aria-hidden="true">Prev 10</span>
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link  @(Model.HasPrevPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-1)">
+                        <a class="page-link  "@(Model.HasPrevPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-1)">
                             <span aria-hidden="true">Prev</span>
                         </a>
                     </li>
@@ -61,36 +59,36 @@
                         <li class="page-item "><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex-1)"> @(Model.PageIndex-1)</a></li>
                     }
                     <li class="page-item active" aria-current="page"><a class="page-link  "  asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@Model.PageIndex">@Model.PageIndex</a></li>
-                    @if (Model.PageIndex < Model.Count -2)
+                    @if (Model.PageIndex < Model.TotalPages -2)
                     {
                         <li class="page-item "><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+1)">@(Model.PageIndex+1)</a></li>
                     }
 
-                    @if (Model.PageIndex < Model.Count -3)
+                    @if (Model.PageIndex < Model.TotalPages -3)
                     {
                         <li class="page-item"><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+2)">@(Model.PageIndex+2)</a></li>
                     
                     }
 
-                    @if (Model.PageIndex > 0  && Model.PageIndex < Model.Count - 3 )
+                    @if (Model.PageIndex > 0  && Model.PageIndex < Model.TotalPages - 3 )
                     {
                         <li class="page-item"><a class="page-link" >....</a></li>
                     
                     }
 
 
-                    @if (Model.PageIndex < Model.Count - 3)
+                    @if (Model.PageIndex < Model.TotalPages - 3)
                     {
-                        <li class="page-item"><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.Count)">@(Model.Count)</a></li>
+                        <li class="page-item"><a class="page-link" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.TotalPages)">@(Model.TotalPages)</a></li>
                     }
                     <li class="page-item">
-                        <a class="page-link  @(Model.HasNextPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+1)" aria-label="Next">
+                        <a class="page-link  "@(Model.HasNextPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+1)" aria-label="Next">
                             <span aria-hidden="true">Next</span>
                         </a>
                     </li>
 
                     <li class="page-item">
-                        <a class="page-link  @(Model.HasNextPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+10)" aria-label="Next10">
+                        <a class="page-link  "@(Model.HasNextPage ? null : "disabled")" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre" asp-route-pageNumber="@(Model.PageIndex+10)" aria-label="Next10">
                             <span aria-hidden="true">Next 10</span>
                         </a>
                     </li>

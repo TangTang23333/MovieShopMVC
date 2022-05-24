@@ -7,6 +7,7 @@ namespace Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly IFavoriteRepository _favoriteRepository;
         private readonly ICartRepository _cartRepository;
@@ -23,7 +24,8 @@ namespace Infrastructure.Services
             ICartRepository cartRepository,
             IMovieService movieService,
             IReviewRepository reviewRepository,
-            IMovieRepository movieRepository
+            IMovieRepository movieRepository,
+            IUserRepository userRepository
             )
         {
             this._purchaseRepository = purchaseRepository;
@@ -32,6 +34,7 @@ namespace Infrastructure.Services
             this._movieService = movieService;
             this._reviewRepository = reviewRepository;
             this._movieRepository = movieRepository;
+            this._userRepository = userRepository;
         }
 
 
@@ -209,6 +212,22 @@ namespace Infrastructure.Services
             {
                 return false;
             }
+        }
+
+
+        public async Task<UserProfileModel> GetUserProfile(int id)
+        {
+            var user = await this._userRepository.GetById(id);
+            var profile = new UserProfileModel
+            {
+                Firstname = user.FirstName,
+                Lastname = user.LastName,
+                DateOfBirth = (DateTime)user.DateOfBirth,
+                Email = user.Email,
+                Phone = user.PhoneNumber
+            };
+
+            return profile;
         }
     }
 }

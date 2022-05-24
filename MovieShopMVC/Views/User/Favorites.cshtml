@@ -1,18 +1,17 @@
-﻿
-@model List<ApplicationCore.Models.FavoriteDetailModel>
+﻿@model List<ApplicationCore.Models.FavoriteDetailModel>
 
 
 <div>
-    <div class="container-fluid">
-            <div class="row">
+    <div class="container-fluid" style="padding: 80px;">
+        <div class="row">
+            <h3> Favorite </h3>
+            @foreach (var movie in Model)
+            {
+                <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
 
-    @foreach (var movie  in Model)
-    {
-         <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
-
-          <partial name="_FavoriteMovieCardPartial" model="movie" />
-         </div>
-    }
-</div>
-</div>
+                    <partial name="_FavoriteMovieCardPartial" model="movie" />
+                </div>
+            }
+        </div>
+    </div>
 </div>

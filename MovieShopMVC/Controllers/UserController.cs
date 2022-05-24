@@ -80,7 +80,13 @@ namespace MovieShopMVC.Controllers
 
 
 
-
+        [HttpGet]
+        public async Task<ActionResult> Profile()
+        {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _userService.GetUserProfile(userId);
+            return View();
+        }
 
 
         //[HttpGet]

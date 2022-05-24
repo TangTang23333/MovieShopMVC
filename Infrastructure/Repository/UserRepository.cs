@@ -46,7 +46,8 @@ namespace Infrastructure.Repository
 
         public async Task<User> GetById(int Id)
         {
-            throw new NotImplementedException();
+            return await this._context.Set<User>().FirstOrDefaultAsync(u => u.Id == Id);
+
         }
 
 

@@ -8,7 +8,7 @@ namespace ApplicationCore.Contracts.Repositories
 
 
 
-
+        Task<User> GetById(int Id);
 
         Task<User> GetUserByEmail(string email);
         Task<User> Update(User user);
