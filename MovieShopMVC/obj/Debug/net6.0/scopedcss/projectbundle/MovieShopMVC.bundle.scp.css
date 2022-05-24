@@ -14,9 +14,7 @@ button[b-tv0u6vhy1m] {
     width: 400px;
 }
 
-button[b-gr7r9rn3r6] {
-    background-color: black;
-}
+
 /* _content/MovieShopMVC/Views/Shared/_FavoriteMovieCardPartial.cshtml.rz.scp.css */
 .info[b-h51r0yyopq] {
     opacity: 0;
@@ -172,11 +170,40 @@ cursor: pointer;
 /* _content/MovieShopMVC/Views/User/Profile.cshtml.rz.scp.css */
 .content[b-gqp3l63f69] {
     display: flex;
-    margin-top: 10px;
+    margin-top: 30px;
+    align-items:center;
 }
 
 .container[b-gqp3l63f69] {
-    display: flex;
+    
     justify-content:center;
     align-items: center;
+}
+
+p[b-gqp3l63f69] {
+    font-size: 18px;
+    font-weight: bold;
+    width: 200px;
+    margin-bottom: 0;
+}
+
+
+input[b-gqp3l63f69] {
+    border: none;
+    border-bottom: 0.5px solid black;
+    font-size: 18px;
+}
+
+h3[b-gqp3l63f69] {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+button[b-gqp3l63f69] {
+    margin-top: 50px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    padding: 2px 5px;
+    background-color: black;
 }

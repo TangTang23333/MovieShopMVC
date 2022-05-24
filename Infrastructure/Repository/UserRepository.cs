@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,12 +53,24 @@ namespace Infrastructure.Repository
 
 
 
-        public async Task<User> Update(User userUpdated)
+        public async Task<bool> Update(UserProfileModel userUpdated)
         {
-            this._context.Set<User>().Update(userUpdated);
-            await this._context.SaveChangesAsync();
+            try
+            {
+                var user = await this._context.Set<User>().FirstOrDefaultAsync(u => u.Id == userUpdated.Id);
+                user.FirstName = userUpdated.Firstname;
+                user.LastName = userUpdated.Lastname;
+                user.Email = userUpdated.Email;
+                user.PhoneNumber = userUpdated.Phone;
+                user.DateOfBirth = userUpdated.DateOfBirth;
+                await this._context.SaveChangesAsync();
 
-            return userUpdated;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("update is failed! Please try again!");
+            }
         }
     }
 }

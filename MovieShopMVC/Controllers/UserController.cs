@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Contracts.Services;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -84,9 +85,20 @@ namespace MovieShopMVC.Controllers
         public async Task<ActionResult> Profile()
         {
             var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            await _userService.GetUserProfile(userId);
-            return View();
+            var user = await _userService.GetUserProfile(userId);
+            return View(user);
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Update(UserProfileModel user)
+        {
+
+            await _userService.UpdateUser(user);
+            return View("Profile", user);
+        }
+
+
 
 
         //[HttpGet]

@@ -48,7 +48,7 @@ namespace MovieShopMVC.Controllers
 
         }
 
-        public async Task<IActionResult> RemoveFavorite(int id)
+        public async Task<IActionResult> RemoveFavorite(int userId, int movieId)
         {
             string currentURL = Request.Headers["Referer"].ToString();
 
@@ -57,7 +57,7 @@ namespace MovieShopMVC.Controllers
             try
             {
 
-                await _favoriteService.RemoveFavoriteToUserId(id);
+                await _favoriteService.RemoveFavoriteToUserId(userId, movieId);
                 return Redirect(currentURL);
             }
             catch (Exception ex)

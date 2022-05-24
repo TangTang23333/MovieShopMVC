@@ -73,23 +73,7 @@ namespace Infrastructure.Repository
 
 
 
-        public async Task<bool> DeleteFavoriteToUserId(int id)
-        {
 
-
-            try
-            {
-                var f = await this._context.Set<Favorite>().FirstOrDefaultAsync(f => f.Id == id);
-                this._context.Set<Favorite>().Remove(f);
-                await this._context.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-
-                return false;
-            }
-        }
 
 
         public async Task<bool> DeleteFavoriteToUserId(int userId, int movieId)

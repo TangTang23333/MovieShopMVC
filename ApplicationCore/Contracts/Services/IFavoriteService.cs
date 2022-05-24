@@ -6,7 +6,7 @@ namespace ApplicationCore.Contracts.Services
     {
 
         Task<bool> AddFavoriteToUserId(FavoriteDetailModel entity);
-        Task<bool> RemoveFavoriteToUserId(int favoriteId);
+
         Task<bool> RemoveFavoriteToUserId(int userId, int movieId);
         Task<bool> ClearFavoriteToUserId(int userId);
 

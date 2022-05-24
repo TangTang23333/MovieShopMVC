@@ -1,5 +1,4 @@
-﻿
-@using ApplicationCore.Models
+﻿@using ApplicationCore.Models
 @model UserProfileModel
 
 
@@ -8,31 +7,40 @@
     <h3>User Profile</h3>
 
     <div>
-        <div class="content">
-            <p> First Name</p>
-            <input name="firstname" value ="@Model.Firstname"/>
-        </div>
 
-        <div class="content">
-            <p>Last Name</p>
-            <input name="lastname" value="@Model.Lastname"/>
-        </div>
+        <form method="post" asp-controller="User" asp-action="Update">
+            <div class="content">
+                <p> ID</p>
+                <input name="Id" value="@Model.Id" readonly />
+            </div>
+            
+            <div class="content">
+                <p> First Name</p>
+                <input name="firstname" value="@Model.Firstname" />
+            </div>
 
-        <div class="content">
-            <p>Date Of Birth</p>
-            <input type="date" name="dateofbirth" value="@Model.DateOfBirth" />
-        </div>
+            <div class="content">
+                <p>Last Name</p>
+                <input name="lastname" value="@Model.Lastname" />
+            </div>
 
-        <div class="content">
-            <p>Email</p>
-            <input type="email" name="email" value="@Model.Email"/>
-        </div
+            <div class="content">
+                <p>Date Of Birth</p>
+                <input type="date" name="dateofbirth" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" />
+            </div>
 
-        <div class="content">
-            <p>Phone</p>
-            <input  name="phone" value="@Model.Phone"/>
-        </div>
+            <div class="content">
+                <p>Email</p>
+                <input type="email" name="email" value="@Model.Email" />
+            </div>
 
-       
+            <div class="content">
+                <p>Phone</p>
+                <input name="phone" value="@Model.Phone" />
+            </div>
+
+
+            <button type="submit">Save Changes</button>
+        </form>
     </div>
 </div>

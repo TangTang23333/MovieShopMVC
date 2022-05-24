@@ -8,7 +8,7 @@ namespace ApplicationCore.Contracts.Repositories
 
         Task<List<Favorite>> GetFavoritesByUserId(int userId);
         Task<bool> AddFavoriteToUserId(FavoriteDetailModel entity);
-        Task<bool> DeleteFavoriteToUserId(int id);
+
         Task<bool> DeleteFavoriteToUserId(int userId, int movieId);
         Task<bool> ClearFavoriteToUserId(int id);
 

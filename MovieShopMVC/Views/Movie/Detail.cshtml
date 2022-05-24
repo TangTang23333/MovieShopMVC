@@ -20,14 +20,14 @@
                 <h1>@Model.Title</h1>
                 @if (Model.IsFavorite == true)
                 {
-                    <a asp-controller="Favorite" asp-action="RemoveFavorite" asp-route-id="@Model.Id" >
-                        <i class="fas fa-heart heart" style=" color: red; margin-left: 20px; width: 35px; height: 35px;" alt="Favorited"></i>
+                    <a asp-controller="Favorite" asp-action="RemoveFavorite" asp-route-userid="@Model.UserId" asp-route-movieid ="@Model.Id" >
+                        <i class="fas fa-heart heart" style=" color: red; margin-left: 20px; width: 35px; height: 35px;" ></i>
                     </a>
                 }
                 else
                 {
                        <a asp-controller="Favorite" asp-action="AddFavorite" asp-route-id="@Model.Id">
-                        <i class="far fa-heart" style=" color: white;  margin-left: 20px; width: 35px; height: 35px;" alt="Click to like it"></i>
+                        <i class="far fa-heart" style=" color: white;  margin-left: 20px; width: 35px; height: 35px;" ></i>
                        </a>
                 }
 

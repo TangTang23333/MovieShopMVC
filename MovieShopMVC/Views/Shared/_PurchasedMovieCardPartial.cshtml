@@ -5,7 +5,7 @@
         <img class="img-fluid" src="@Model.PosterURL" alt="@Model.Title">
     </a>
 
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#PurchaseDetailModal">
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#PurchaseDetailModal-@Model.MovieId">
         Purchase Details
     </button>
 
@@ -13,7 +13,7 @@
 
 
     <!-- movie purchase detail model -->
-    <div class="modal fade" id="PurchaseDetailModal" tabindex="-1" aria-labelledby="PurchaseDetailModal" aria-hidden="true">
+    <div class="modal fade" id="PurchaseDetailModal-@Model.MovieId" tabindex="-1" aria-labelledby="PurchaseDetailModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

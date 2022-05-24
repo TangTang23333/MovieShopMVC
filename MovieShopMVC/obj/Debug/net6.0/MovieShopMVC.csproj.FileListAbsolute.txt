@@ -310,3 +310,4 @@ C:\Users\15109\Documents\Antra-training\MovieShop\MovieShopMVC\bin\Debug\net6.0\
 C:\Users\15109\Documents\Antra-training\MovieShop\MovieShopMVC\bin\Debug\net6.0\System.Xml.XPath.XmlDocument.dll
 C:\Users\15109\Documents\Antra-training\MovieShop\MovieShopMVC\obj\Debug\net6.0\scopedcss\Views\Account\Register.cshtml.rz.scp.css
 C:\Users\15109\Documents\Antra-training\MovieShop\MovieShopMVC\obj\Debug\net6.0\scopedcss\Views\User\Profile.cshtml.rz.scp.css
+C:\Users\15109\Documents\Antra-training\MovieShop\MovieShopMVC\obj\Debug\net6.0\scopedcss\Views\Account\Login.cshtml.rz.scp.css

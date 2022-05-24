@@ -220,6 +220,7 @@ namespace Infrastructure.Services
             var user = await this._userRepository.GetById(id);
             var profile = new UserProfileModel
             {
+                Id = user.Id,
                 Firstname = user.FirstName,
                 Lastname = user.LastName,
                 DateOfBirth = (DateTime)user.DateOfBirth,
@@ -228,6 +229,13 @@ namespace Infrastructure.Services
             };
 
             return profile;
+        }
+
+
+
+        public async Task<bool> UpdateUser(UserProfileModel user)
+        {
+            return await this._userRepository.Update(user);
         }
     }
 }

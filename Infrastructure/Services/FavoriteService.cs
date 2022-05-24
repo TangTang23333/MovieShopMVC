@@ -24,11 +24,8 @@ namespace Infrastructure.Services
 
         }
 
-        public async Task<bool> RemoveFavoriteToUserId(int id)
 
-        {
-            return await this._favoriteRepository.DeleteFavoriteToUserId(id);
-        }
+
 
         public async Task<bool> RemoveFavoriteToUserId(int userId, int movieId)
 

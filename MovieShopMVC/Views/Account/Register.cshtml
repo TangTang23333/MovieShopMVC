@@ -18,26 +18,33 @@
         <div class="form-floating">
             <input type="email" class="form-control" id="floatingInput" name="Email" placeholder="name@example.com">
             <label for="floatingInput">Email</label>
+            <span class="error-msg color-danger" asp-validation-for="@Model.Email"></span>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="floatingPassword" name="Password" placeholder="Password">
             <label for="floatingPassword">Password</label>
+            <span class="error-msg color-danger" style="color: red;" asp-validation-for="@Model.Password"></span>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="floatingConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password">
             <label for="floatingConfirmPassword">Confirm Password</label>
+            
         </div>
         <div class="form-floating">
             <input type="text" class="form-control" id="floatingFistname" name="Firstname" placeholder="FirstName">
             <label for="floatingFistname">First Name</label>
+            <span class="error-msg color-danger" asp-validation-for="@Model.Firstname"></span>
         </div>
         <div class="form-floating">
             <input type="text" class="form-control" id="floatingLastname" name="Lastname" placeholder="LastName">
             <label for="floatingLastname">Last Name</label>
+            <span class="error-msg color-danger" asp-validation-for="@Model.Lastname"></span>
         </div>
         <div class="form-floating">
             <input type="date" class="form-control" id="floatingDOB" name="DateOfBirth" placeholder="DOB">
             <label for="floatingDOB">Date Of Birth</label>
+            <span class="error-msg color-danger" asp-validation-for="@Model.DateOfBirth"></span>
+            
         </div>
 
         <button class="btn btn-lg btn-dark" style="margin-top: 40px; "

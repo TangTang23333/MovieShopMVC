@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Contracts.Repositories
 {
@@ -7,7 +8,7 @@ namespace ApplicationCore.Contracts.Repositories
 
 
 
-
+        Task<bool> Update(UserProfileModel userUpdated);
         Task<User> GetById(int Id);
 
         Task<User> GetUserByEmail(string email);

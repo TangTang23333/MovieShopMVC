@@ -19,5 +19,6 @@ namespace ApplicationCore.Contracts.Services
 
         public Task<bool> IsMovieFavorite(int userId, int id);
         public Task<bool> AddPurchase(List<CartDetailModel> purchases);
+        public Task<bool> UpdateUser(UserProfileModel user);
     }
 }
