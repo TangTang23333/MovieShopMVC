@@ -97,5 +97,20 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
         throw new NotImplementedException();
     }
 
+    public async Task<PageResultSet<MovieDetailsModel>> GetMoviesByReleaseDate(int pageNumber, int pageSize)
+    {
 
+        var totalMovieCount = await this._context.Set<Movie>().CountAsync();
+
+        var movies = await this._context.Set<Movie>()
+            .OrderByDescending(m => m.ReleaseDate)
+            .Select(m => new MovieDetailsModel { Id = m.Id, Title = m.Title, PosterURL = m.PosterURL })
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        var pageOfMovies = new PageResultSet<MovieDetailsModel>(movies, pageNumber, pageSize, totalMovieCount);
+
+        return pageOfMovies;
+    }
 }
