@@ -22,7 +22,7 @@ namespace ApplicationCore.Models
         [StringLength(100)]
         public string Email { get; set; }
         [Required]
-        [RegularExpression(@"^[a-zA-Z''-'\s]{8,}$", ErrorMessage = "Password should have at least one number, one lowercase and one uppercase")]
+        //[RegularExpression(@"^[a-zA-Z''-'\s]{8,}$", ErrorMessage = "Password should have at least one number, one lowercase and one uppercase, total length > 8")]
         // >= 8 char, >= 1upper 1 lower 1 num, strong password
         public string Password { get; set; }
         [Required]
