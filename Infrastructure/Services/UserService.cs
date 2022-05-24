@@ -77,6 +77,7 @@ namespace Infrastructure.Services
             {
                 movies.Add(new FavoriteDetailModel
                 {
+                    UserId = userId,
                     Id = favorite.Id,
                     MovieId = favorite.MovieId,
                     Title = favorite.Movie.Title,
