@@ -7,7 +7,7 @@
         </a>
 
         <div class="info">
-            <a asp-controller="Favorite" asp-action="RemoveFavorite" asp-route-id="@Model.Id" style="text-decoration: none;">
+            <a asp-controller="Favorite" asp-action="RemoveFavorite" asp-route-useid="@Model.UserId" asp-route-movieid="@Model.Id" style="text-decoration: none;">
                 <i class="bi bi-x-circle icon" style="font-size: 40px;"></i>
             </a>
         </div>
