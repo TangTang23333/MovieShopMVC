@@ -1,6 +1,21 @@
+/* _content/MovieShopMVC/Views/Account/Login.cshtml.rz.scp.css */
+.form-floating[b-tv0u6vhy1m] {
+    margin-top: 10px;
+    width: 400px;
+}
+
+
+button[b-tv0u6vhy1m] {
+    background-color: black;
+}
 /* _content/MovieShopMVC/Views/Account/Register.cshtml.rz.scp.css */
 .form-floating[b-gr7r9rn3r6] {
     margin-top: 10px;
+    width: 400px;
+}
+
+button[b-gr7r9rn3r6] {
+    background-color: black;
 }
 /* _content/MovieShopMVC/Views/Shared/_FavoriteMovieCardPartial.cshtml.rz.scp.css */
 .info[b-h51r0yyopq] {

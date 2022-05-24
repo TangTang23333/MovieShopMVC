@@ -82,11 +82,11 @@
             },
             //Execute the payment
             onAuthorize: function (data, actions) {
-                // data of reponse 
+                // data : reponse 
                 
                 return actions.payment.execute().then(function () {
                    
-                    //actions.redirect(windows, "https://localhost:7169/Purchase/CreatePurchase");
+                    
                     var url = '@Url.Action("CreatePurchase", "Purchase")';
                     window.location.href = url;
                 });
