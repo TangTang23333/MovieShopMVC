@@ -209,5 +209,20 @@ namespace Infrastructure.Services
 
             return new PageResultSet<MovieCardModel>(movieCards, pageNumber, pageSize, moviesByPages.Count);
         }
+
+
+        public async Task<MovieCreateRequestModel> CreateNewMovie(MovieCreateRequestModel model)
+        {
+            return await this._movieRepository.CreateNewMovie(model);
+
+        }
+
+        public async Task<MovieCreateRequestModel> UpdateMovie(MovieCreateRequestModel model)
+        {
+            return await this._movieRepository.UpdateMovie(model);
+
+        }
+
+
     }
 }

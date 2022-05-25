@@ -13,5 +13,8 @@ namespace ApplicationCore.Contracts.Services
         public Task<PageResultSet<MovieCardModel>> GetMoviesByGenreId(int genreId, int pageNumber = 1, int pageSize = 30);
         public Task<PageResultSet<MovieCardModel>> GetMoviesByReleaseDate(int pageNumber = 1, int pageSize = 30);
 
+        public Task<MovieCreateRequestModel> CreateNewMovie(MovieCreateRequestModel model);
+        public Task<MovieCreateRequestModel> UpdateMovie(MovieCreateRequestModel model);
+
     }
 }

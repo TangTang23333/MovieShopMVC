@@ -1,11 +1,17 @@
 ﻿using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MovieShopAPI.Controllers
 {
-    //[Authorize]
-    public class UserController : Controller
+
+    [Route("api/[controller]")]
+    [ApiController]
+
+    [Authorize]
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IFavoriteService _favoriteService;
@@ -23,8 +29,10 @@ namespace MovieShopAPI.Controllers
         [Route("Details")]
         [HttpGet]
 
-        public async Task<IActionResult> GetUserProfile(int userId)
+        public async Task<IActionResult> GetUserProfile()
         {
+
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var user = await this._userService.GetUserProfile(userId);
 
             if (user == null)
@@ -55,9 +63,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("Favortie")]
         [HttpPost]
-        public async Task<IActionResult> CreateFavoriteAPI(int userId, int movieId)
+        public async Task<IActionResult> CreateFavoriteAPI(int movieId)
         {
-
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var favorite = await this._favoriteService.CreateFavoriteAPI(userId, movieId);
 
@@ -72,8 +80,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("un-Favortie")]
         [HttpPost]
-        public async Task<IActionResult> DeleteFavoriteAPI(int userId, int movieId)
+        public async Task<IActionResult> DeleteFavoriteAPI(int movieId)
         {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var favorite = await this._favoriteService.RemoveFavoriteToUserId(userId, movieId);
             if (favorite)
             {
@@ -85,8 +94,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("check-movie-favorite/{movieId}")]
         [HttpGet]
-        public async Task<IActionResult> IsFavoriteAPI(int userId, int movieId)
+        public async Task<IActionResult> IsFavoriteAPI(int movieId)
         {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var isMovieFavorite = await this._userService.IsMovieFavorite(userId, movieId);
             if (isMovieFavorite != null) { return Ok(isMovieFavorite); }
             return BadRequest("Check favorite failed!");
@@ -115,8 +125,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("delete-review/{moiveId}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteReviewAPI(int userId, int movieId)
+        public async Task<IActionResult> DeleteReviewAPI(int movieId)
         {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(await this._reviewService.DeleteReview(userId, movieId));
 
         }
@@ -124,8 +135,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("purchases")]
         [HttpGet]
-        public async Task<IActionResult> GetPurchasesAPI(int userId)
+        public async Task<IActionResult> GetPurchasesAPI()
         {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var purchases = await this._userService.GetPurchasesByUserId(userId);
             return Ok(purchases);
         }
@@ -133,8 +145,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("Purchase-details/{movieId}")]
         [HttpGet]
-        public async Task<IActionResult> GetPurchaseDetailAPI(int userId, int movieId)
+        public async Task<IActionResult> GetPurchaseDetailAPI(int movieId)
         {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var purchase = await this._purchaseService.GetPurchaseDetailByMovieId(userId, movieId);
             if (purchase != null)
             { return Ok(purchase); }
@@ -146,9 +159,9 @@ namespace MovieShopAPI.Controllers
 
         [Route("check-movie-purchased/{movieId}")]
         [HttpGet]
-        public async Task<IActionResult> IsPurchasedAPI(int userId, int movieId)
+        public async Task<IActionResult> IsPurchasedAPI(int movieId)
         {
-
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(await this._userService.IsMoviePurchased(userId, movieId));
 
 
@@ -157,17 +170,18 @@ namespace MovieShopAPI.Controllers
 
         [Route("favorites")]
         [HttpGet]
-        public async Task<IActionResult> GetAllFavoritesAPI(int userId)
+        public async Task<IActionResult> GetAllFavoritesAPI()
         {
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(await this._userService.GetFavoritesByUserId(userId));
         }
 
 
         [Route("movie-reviews")]
         [HttpGet]
-        public async Task<IActionResult> GetAllReviewsByUserIdAPI(int userId)
+        public async Task<IActionResult> GetAllReviewsByUserIdAPI()
         {
-
+            var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(await this._reviewService.GetReviewsByUserId(userId));
         }
 

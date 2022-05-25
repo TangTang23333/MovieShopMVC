@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopAPI.Controllers
 {
-    public class GenresController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GenresController : ControllerBase
     {
         private readonly IGenreService _genreService;
 

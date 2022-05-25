@@ -17,5 +17,8 @@ namespace ApplicationCore.Contracts.Repositories
         Task<PageResultSet<Movie>> GetMoviesByGenreId(int genre, int pageNumber = 1, int pageSize = 30);
 
         Task<List<MovieCardModel>> GetTopRated30();
+        Task<MovieCreateRequestModel> CreateNewMovie(MovieCreateRequestModel model);
+
+        Task<MovieCreateRequestModel> UpdateMovie(MovieCreateRequestModel model);
     }
 }

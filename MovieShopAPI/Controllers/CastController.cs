@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopAPI.Controllers
 {
-    public class CastController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CastController : ControllerBase
     {
         private readonly ICastService _castService;
 

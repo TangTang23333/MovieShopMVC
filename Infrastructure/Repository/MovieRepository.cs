@@ -89,11 +89,6 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
     }
 
 
-
-
-
-
-
     public async Task<PageResultSet<MovieDetailsModel>> GetMoviesByReleaseDate(int pageNumber, int pageSize)
     {
 
@@ -165,5 +160,103 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
         var pageOfMovies = new PageResultSet<Movie>(movies, pageNumber, pageSize, totalMovieCount);
 
         return pageOfMovies;
+    }
+
+
+    public async Task<MovieCreateRequestModel> CreateNewMovie(MovieCreateRequestModel model)
+    {
+
+        var movie = new Movie
+        {
+            Title = model.Title,
+            BackdropURL = model.BackdropURL,
+            Budget = model.Budget,
+            Overview = model.Overview,
+            Tagline = model.TagLine,
+            Revenue = model.Revenue,
+            ImdbURL = model.ImdbURL,
+            TmdbURL = model.TmdbURL,
+            PosterURL = model.PosterURL,
+            OriginalLanguage = model.OriginalLanguage,
+            ReleaseDate = model.ReleaseDate,
+            RunTime = model.RunTime,
+            Price = model.Price
+
+
+        };
+        await this._context.Set<Movie>().AddAsync(movie);
+        await this._context.SaveChangesAsync();
+
+        var movieCreated = await this._context.Set<Movie>().FirstOrDefaultAsync(M => M.Title == model.Title);
+        if (movieCreated == null)
+        {
+            throw new Exception("Create new movie failed!");
+        }
+        // call genre to create new movie-genre 
+        foreach (var mg in model.Genres)
+        {
+            var movieGenre = new MovieGenre { GenreId = mg.GenreId, MovieId = mg.MovieId };
+            await this._context.Set<MovieGenre>().AddAsync(movieGenre);
+            await this._context.SaveChangesAsync();
+
+        }
+
+        model.Id = movieCreated.Id;
+        return model;
+
+
+
+    }
+
+
+    public async Task<MovieCreateRequestModel> UpdateMovie(MovieCreateRequestModel model)
+    {
+
+
+        var movie = await this._context.Set<Movie>().FirstOrDefaultAsync(m => m.Id == model.Id);
+
+        if (movie == null)
+        {
+            throw new Exception("No such movie found, please recheck movie Id!");
+        }
+
+        movie.Title = model.Title;
+        movie.PosterURL = model.PosterURL;
+        movie.Price = model.Price;
+        movie.BackdropURL = model.BackdropURL;
+        movie.Budget = model.Budget;
+        movie.ImdbURL = model.ImdbURL;
+        movie.OriginalLanguage = model.OriginalLanguage;
+        movie.Overview = model.Overview;
+        movie.ReleaseDate = model.ReleaseDate;
+        movie.Revenue = model.Revenue;
+        movie.RunTime = model.RunTime;
+        movie.Tagline = model.TagLine;
+        movie.TmdbURL = model.TmdbURL;
+
+        // delete original moviegenre 
+
+
+        var moviegenres = this._context.Set<MovieGenre>().Where(mg => mg.MovieId == mg.MovieId);
+        this._context.Set<MovieGenre>().RemoveRange(moviegenres);
+        await this._context.SaveChangesAsync();
+
+
+
+
+        // then update new movie-genre 
+        foreach (var mg in model.Genres)
+        {
+            var movieGenre = new MovieGenre { GenreId = mg.GenreId, MovieId = mg.MovieId };
+            await this._context.Set<MovieGenre>().AddAsync(movieGenre);
+            await this._context.SaveChangesAsync();
+
+        }
+
+
+        return model;
+
+
+
     }
 }
