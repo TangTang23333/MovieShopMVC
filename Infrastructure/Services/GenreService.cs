@@ -1,9 +1,10 @@
 ﻿using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
 
 namespace Infrastructure.Services
 {
-    public class GenreService
+    public class GenreService : IGenreService
     {
         private readonly IGenreRepository _genreRepository;
 

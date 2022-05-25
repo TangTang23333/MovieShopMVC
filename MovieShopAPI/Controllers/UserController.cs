@@ -1,11 +1,10 @@
 ﻿using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -23,7 +22,7 @@ namespace MovieShopAPI.Controllers
         }
         [Route("Details")]
         [HttpGet]
-        [Authorize]
+
         public async Task<IActionResult> GetUserProfile(int userId)
         {
             var user = await this._userService.GetUserProfile(userId);

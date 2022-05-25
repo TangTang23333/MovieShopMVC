@@ -18,6 +18,9 @@ builder.Services.AddScoped<ICastService, CastService>();
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+
 
 
 builder.Services.AddScoped<IMovieService, MovieService>();
@@ -26,6 +29,7 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 // if we want test , just inject with movietestservice. 
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();

@@ -116,5 +116,17 @@ namespace Infrastructure.Repository
             return p != null;
 
         }
+
+        public async Task<Purchase> GetPurchaseDetailByMovieId(int userId, int movieId)
+        {
+            var purchase = await this._context.Set<Purchase>().FirstOrDefaultAsync(p => p.UserId == userId && p.MovieId == movieId);
+
+            if (purchase != null)
+            {
+                return purchase;
+            }
+            throw new Exception("no such purchase exists!");
+
+        }
     }
 }

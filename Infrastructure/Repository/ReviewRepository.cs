@@ -65,7 +65,7 @@ namespace Infrastructure.Repository
             {   // make sure it is not update 
 
                 var r = await this._context.Set<Review>().FirstOrDefaultAsync(
-                    r => r.UserId == review.UserId && r.MovieId == r.MovieId);
+                    r => r.UserId == review.UserId && r.MovieId == review.MovieId);
 
                 if (r == null)
                 {
