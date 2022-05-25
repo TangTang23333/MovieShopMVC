@@ -69,12 +69,19 @@ namespace Infrastructure.Repository
             }
         }
 
+        public async Task<Favorite> CreateFavoriteAPI(int userId, int movieId)
+        {
+            var favorite = new Favorite
+            {
+                UserId = userId,
+                MovieId = movieId
+            };
 
+            await this._context.Set<Favorite>().AddAsync(favorite);
+            await this._context.SaveChangesAsync();
+            return favorite;
 
-
-
-
-
+        }
 
         public async Task<bool> DeleteFavoriteToUserId(int userId, int movieId)
         {

@@ -7,10 +7,10 @@ namespace ApplicationCore.Contracts.Repositories
     {
 
 
-
+        Task<Purchase> CreatePurchaseAPI(PurchaseRequestModel entity);
         Task<List<Purchase>> GetPurchaseByUserId(int userId);
         Task<bool> AddPurchaseToUserId(CartDetailModel entity);
-
+        Task<Purchase> GetPurchaseDetailByMovieId(int userId, int movieId);
         Task<bool> IsMoviePurcahsed(int userId, int movieId);
 
 

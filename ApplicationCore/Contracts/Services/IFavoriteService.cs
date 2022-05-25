@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Models;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Contracts.Services
 {
@@ -9,7 +10,7 @@ namespace ApplicationCore.Contracts.Services
 
         Task<bool> RemoveFavoriteToUserId(int userId, int movieId);
         Task<bool> ClearFavoriteToUserId(int userId);
-
+        Task<Favorite> CreateFavoriteAPI(int userId, int movieId);
 
 
     }

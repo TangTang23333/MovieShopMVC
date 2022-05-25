@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Models;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Contracts.Services
 {
@@ -18,7 +19,8 @@ namespace ApplicationCore.Contracts.Services
 
 
         public Task<bool> IsMovieFavorite(int userId, int id);
-        public Task<bool> AddPurchase(List<CartDetailModel> purchases);
+        public Task<Purchase> CreatePurchaseAPI(PurchaseRequestModel purchase);
+        public Task<bool> AddPurchaseFromCart(List<CartDetailModel> purchases);
         public Task<bool> UpdateUser(UserProfileModel user);
     }
 }

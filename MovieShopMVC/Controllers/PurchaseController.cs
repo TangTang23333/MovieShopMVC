@@ -24,7 +24,7 @@ namespace MovieShopMVC.Controllers
         {
             var userId = this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var purchases = await this._userService.GetCartByUserId(Convert.ToInt32(userId));
-            await this._userService.AddPurchase(purchases);
+            await this._userService.AddPurchaseFromCart(purchases);
             await this._cartService.ClearCartToUser(Convert.ToInt32(userId));
 
             return LocalRedirect("~/user/purchased");

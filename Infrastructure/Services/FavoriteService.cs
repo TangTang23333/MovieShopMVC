@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Services;
+using ApplicationCore.Entities;
 using ApplicationCore.Models;
 
 namespace Infrastructure.Services
@@ -31,6 +32,11 @@ namespace Infrastructure.Services
 
         {
             return await this._favoriteRepository.DeleteFavoriteToUserId(userId, movieId);
+        }
+
+        public async Task<Favorite> CreateFavoriteAPI(int userId, int movieId)
+        {
+            return await this._favoriteRepository.CreateFavoriteAPI(userId, movieId);
         }
     }
 }

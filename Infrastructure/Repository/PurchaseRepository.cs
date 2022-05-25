@@ -74,7 +74,7 @@ namespace Infrastructure.Repository
             catch (Exception ex)
             {
                 throw new Exception("item is not purchased successfully!");
-                return false;
+
             }
         }
 
@@ -83,7 +83,31 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<Purchase> CreatePurchaseAPI(PurchaseRequestModel entity)
+        {
+            var purchase = new Purchase
+            {
+                UserId = entity.UserId,
+                PurchaseNumber = Guid.NewGuid(),
+                TotalPrice = entity.Price,
+                PurchaseDateTime = DateTime.Now,
+                MovieId = entity.MovieId
+            };
 
+
+            try
+            {
+                await this._context.Set<Purchase>().AddAsync(purchase);
+                await this._context.SaveChangesAsync();
+
+                return purchase;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("item is not purchased successfully!");
+
+            }
+        }
 
 
         public async Task<bool> IsMoviePurcahsed(int userId, int movieId)

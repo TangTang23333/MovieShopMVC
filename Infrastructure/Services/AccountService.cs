@@ -99,16 +99,14 @@ namespace Infrastructure.Services
 
         }
 
-        public async Task<bool> RegisterUser(UserRegisterRequestModel user)
+        public async Task<UserLoginResponseModel> RegisterUser(UserRegisterRequestModel user)
         {
 
-
+            var existed = await CheckEmail(user.Email);
             // check if email is already registered in db!!!!
-            var userFound = await _userRepository.GetUserByEmail(user.Email);
-
-            if (userFound != null)
+            if (existed != null)
             {
-                return false;
+                throw new Exception("Email has already been registered, please log in!");
             }
 
 
@@ -128,18 +126,53 @@ namespace Infrastructure.Services
             };
 
 
-            var addUser = _userRepository.Add(newUser);
+            var addUser = await this._userRepository.Add(newUser);
 
 
             if (addUser.Id > 0)
             {
-                return true;
+
+                var response = new UserLoginResponseModel
+                {
+                    Id = addUser.Id,
+
+                    FirstName = addUser.FirstName,
+
+                    LastName = addUser.LastName,
+                    Email = addUser.Email,
+
+                    DateOfBirth = addUser.DateOfBirth
+                };
+
+
+                return response;
             }
 
-            return false;
+            throw new Exception("Registeration is not successful!");
 
         }
+        public async Task<UserLoginResponseModel> CheckEmail(string email)
+        {
+            var userFound = await _userRepository.GetUserByEmail(email);
 
+            if (userFound != null)
+            {
+                var response = new UserLoginResponseModel
+                {
+                    Id = userFound.Id,
+
+                    FirstName = userFound.FirstName,
+
+                    LastName = userFound.LastName,
+                    Email = userFound.Email,
+
+                    DateOfBirth = userFound.DateOfBirth
+                };
+
+                return response;
+            }
+            return null;
+        }
 
     }
 

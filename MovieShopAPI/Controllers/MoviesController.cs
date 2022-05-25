@@ -8,23 +8,31 @@ namespace MovieShopAPI.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieService _movieService;
+        private readonly IReviewService _reviewService;
 
-        public MoviesController(IMovieService movieService)
+        public MoviesController(IMovieService movieService, IReviewService reviewService)
         {
             this._movieService = movieService;
+            this._reviewService = reviewService;
         }
 
 
 
-
+        //api/movies/ default page number = 1 , pagesize = 30
         [Route("")]
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
 
-            var movies = this._movieService.GetMoviesByReleaseDate();
+            var movies = await this._movieService.GetMoviesByReleaseDate();
+
+            if (movies == null)
+            {
+                return NotFound("Movies not found!");
+            }
             return Ok(movies);
         }
+
         // api/movies/top-grossing
         [Route("top-grossing")]
         [HttpGet]
@@ -55,19 +63,51 @@ namespace MovieShopAPI.Controllers
         }
 
 
-        //[Route("{id}")]
-        //[HttpGet]
-        //public async Task<IActionResult> Details(int id);
+        [Route("top-rated")]
+        [HttpGet]
+        public async Task<IActionResult> TopRated()
+        {
+            var movies = await this._movieService.GetTopRated30();
+
+            if (movies == null)
+            {
+                return NotFound("no such movies found!");
+            }
+
+            return Ok(movies);
+
+        }
 
 
-        //[Route("{id}")]
-        //[HttpGet]
-        //public async Task<IActionResult> Details(int id);
+        [Route("genre/{genreId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetByGenreId(int genreId)
+        {
+            var movies = await this._movieService.GetMoviesByGenreId(genreId);
+
+            if (movies == null)
+            {
+                return NotFound("No such movies found!");
+            }
+
+            return Ok(movies);
+        }
 
 
 
-        //[Route("{id}")]
-        //[HttpGet]
-        //public async Task<IActionResult> Details(int id);
+        [Route("{id}/reviews")]
+        [HttpGet]
+        public async Task<IActionResult> GetReviewsByMovieId(int id)
+        {
+            var reviews = await this._reviewService.GetReviewsByMovieId(id);
+            if (reviews == null)
+            {
+                return NotFound("no reviews are found!");
+            }
+
+            return Ok(reviews);
+
+
+        }
     }
 }

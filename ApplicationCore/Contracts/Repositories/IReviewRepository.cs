@@ -15,5 +15,6 @@ namespace ApplicationCore.Contracts.Repositories
         public Task<List<Review>> GetAllReviewsByUser(int userId);
 
 
+
     }
 }

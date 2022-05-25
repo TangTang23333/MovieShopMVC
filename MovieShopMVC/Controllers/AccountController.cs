@@ -58,7 +58,7 @@ namespace MovieShopMVC.Controllers
             try
             {
                 var registerSuccess = await _accountService.RegisterUser(user);
-                if (registerSuccess)
+                if (registerSuccess != null)
                 {
 
                     return RedirectToAction("Login");

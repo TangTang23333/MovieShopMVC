@@ -147,20 +147,7 @@ namespace Infrastructure.Services
 
         }
 
-        public async Task<List<GenreModel>> GetGenreList()
-        {
-            var genresTb = await _movieRepository.GetGenreList();
 
-            var genres = new List<GenreModel>();
-
-            foreach (var genre in genresTb)
-            {
-                genres.Add(new GenreModel { Id = genre.Id, Name = genre.Name });
-            }
-
-
-            return genres;
-        }
 
 
 
@@ -191,5 +178,36 @@ namespace Infrastructure.Services
 
 
 
+        public async Task<List<MovieCardModel>> GetTopRated30()
+        {
+            var movies = await _movieRepository.GetTopRated30();
+
+            return movies;
+        }
+
+        public async Task<PageResultSet<MovieCardModel>> GetMoviesByGenreId(int genreId, int pageNumber, int pageSize)
+        {
+            var moviesByPages = await this._movieRepository.GetMoviesByGenreId(genreId, pageNumber, pageSize);
+
+
+            //PageResultSet<Movie>(movies, pageNumber, pageSize, totalMovieCount);
+            var movieCards = new List<MovieCardModel>();
+
+
+
+            foreach (var movie in moviesByPages.Data)
+            {
+                movieCards.Add(new MovieCardModel
+                {
+                    Id = movie.Id,
+                    PosterURL = movie.PosterURL,
+                    Title = movie.Title
+                });
+            }
+
+
+
+            return new PageResultSet<MovieCardModel>(movieCards, pageNumber, pageSize, moviesByPages.Count);
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace ApplicationCore.Contracts.Services
     {
 
 
-        Task<bool> RegisterUser(UserRegisterRequestModel model);
-
+        Task<UserLoginResponseModel> RegisterUser(UserRegisterRequestModel model);
+        Task<UserLoginResponseModel> CheckEmail(string email);
 
         Task<UserLoginResponseModel> LoginUser(UserLoginModel model);
     }

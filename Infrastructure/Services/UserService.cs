@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Services;
+using ApplicationCore.Entities;
 using ApplicationCore.Models;
 
 namespace Infrastructure.Services
@@ -200,22 +201,41 @@ namespace Infrastructure.Services
             return movieDetail;
         }
 
-        public async Task<bool> AddPurchase(List<CartDetailModel> purchases)
+        public async Task<bool> AddPurchaseFromCart(List<CartDetailModel> purchases)
         {
             try
             {
+
                 foreach (var item in purchases)
-                { await this._purchaseRepository.AddPurchaseToUserId(item); }
+                {
+                    await this._purchaseRepository.AddPurchaseToUserId(item);
+
+                }
                 return true;
 
             }
             catch (Exception ex)
             {
+                throw new Exception("purchase is not successful, please retry later!");
                 return false;
             }
         }
 
+        public async Task<Purchase> CreatePurchaseAPI(PurchaseRequestModel purchase)
+        {
 
+            try
+            {
+                return await this._purchaseRepository.CreatePurchaseAPI(purchase);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Purchase is not successful, please try again later!");
+
+            }
+
+        }
         public async Task<UserProfileModel> GetUserProfile(int id)
         {
             var user = await this._userRepository.GetById(id);

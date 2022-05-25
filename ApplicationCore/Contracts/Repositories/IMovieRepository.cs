@@ -14,7 +14,8 @@ namespace ApplicationCore.Contracts.Repositories
         // totalcount, pagesize, pagenumber, totalpages
         //Task<(List<Movie>, int totalCount, int totalPages)> GetMoviesByGenre(string genre, int pageSize = 30, int pageNumber = 1);
         Task<PageResultSet<Movie>> GetMoviesByGenre(string genre, int pageNumber = 1, int pageSize = 30);
-        Task<List<Genre>> GetGenreList();
+        Task<PageResultSet<Movie>> GetMoviesByGenreId(int genre, int pageNumber = 1, int pageSize = 30);
 
+        Task<List<MovieCardModel>> GetTopRated30();
     }
 }
