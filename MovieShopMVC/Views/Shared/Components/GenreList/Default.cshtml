@@ -1,0 +1,8 @@
+﻿@model List<GenreModel>
+
+
+
+@foreach (var genre in @Model)
+{
+    <li><a class="dropdown-item" asp-controller="Movie" asp-action="Genre" asp-route-genre="@genre.Name">@genre.Name</a></li>
+}
