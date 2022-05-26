@@ -27,9 +27,9 @@ namespace MovieShopMVC.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
 
-                var filteredResultNew = allMovies.Where(n => string.Equals(n.Title, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
-                return View("../Home/Index", filteredResultNew);
+                var filteredResultOld = allMovies.Where(n => n.Title.ToLower().Contains(searchString.ToLower())).ToList();
+                return View("../Home/Index", filteredResultOld);
             }
 
             return View("../Home/Index", allMovies);
