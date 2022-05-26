@@ -13,13 +13,18 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
     // ado.net , MICROSOFT sql connection ,sqlcommand, 
     // ENTITY FRAMEWORK ==> LINQ 
 
+
+
     private readonly MovieShopDbContext _context;
     public MovieRepository(MovieShopDbContext context) : base(context)
     {
         this._context = context;
     }
 
-
+    public async Task<List<Movie>> GetAll()
+    {
+        return await this._context.Set<Movie>().ToListAsync();
+    }
     public async Task<List<Movie>> GetTop30GlossingMovies()
     {
         // SQL Database 

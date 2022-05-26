@@ -5,7 +5,7 @@ namespace ApplicationCore.Contracts.Repositories
 {
     public interface IMovieRepository : IRepository<Movie>
     {
-
+        Task<List<Movie>> GetAll();
         Task<List<Movie>> GetTop30GlossingMovies();
         Task<PageResultSet<MovieDetailsModel>> GetMoviesByReleaseDate(int pageNumber, int pageSize);
         Task<Movie> GetById(int id);

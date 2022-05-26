@@ -5,6 +5,7 @@ namespace ApplicationCore.Contracts.Services
     public interface IMovieService
     {
         // 
+        public Task<List<MovieCardModel>> GetAll();
         public Task<List<MovieCardModel>> GetTop30GlossingMovies();
 
         public Task<List<MovieCardModel>> GetTopRated30();

@@ -23,7 +23,19 @@ namespace Infrastructure.Services
         }
 
 
+        public async Task<List<MovieCardModel>> GetAll()
+        {
+            var movies = await this._movieRepository.GetAll();
 
+            var res = new List<MovieCardModel>();
+
+            foreach (var m in movies)
+            {
+                res.Add(new MovieCardModel { Id = m.Id, PosterURL = m.PosterURL, Title = m.Title });
+            }
+
+            return res;
+        }
         public async Task<List<MovieCardModel>> GetTop30GlossingMovies()
         {
             // call the movierepository class

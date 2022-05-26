@@ -14,11 +14,26 @@ namespace MovieShopMVC.Controllers
 
         public MovieController(IMovieService movieService, IUserService userService)
         {
-            _movieService = movieService;
+            this._movieService = movieService;
             this._userService = userService;
         }
 
+        // used for search bar 
+        [HttpPost]
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allMovies = await this._movieService.GetAll();
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+
+                var filteredResultNew = allMovies.Where(n => string.Equals(n.Title, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+                return View("../Home/Index", filteredResultNew);
+            }
+
+            return View("../Home/Index", allMovies);
+        }
 
 
         // GET: Movie/Detail/5
